@@ -4,12 +4,12 @@ import "boxicons";
 
 function UpperNavBar() {
   return (
-    <div className="px-20">
+    <div className="px-20 fixed w-full">
       <div className="nav-bar-container font-md grid grid-cols-3 gap-4 h-20  ">
         <div className="logo w-25 ">
           <img src={logo} alt="" />
         </div>
-        <div className="topic h-20 flex justify-between items-center text-2xl drop-shadow-lg">
+        <div className="topic h-20 flex justify-between items-center text-xl drop-shadow-lg">
           <div className="men w-1/3 p-5 text-center hover:border-b-2 hover:font-bold">
             {" "}
             <p className="shadow-md">MEN</p>{" "}
