@@ -4,7 +4,7 @@ import LowerNavbar from "../Component/LowerNavbar";
 
 function Home() {
   return (
-    <div>
+    <div className="text-white bg-yellow-200 h-full ">
       <UpperNavBar />
       <LowerNavbar />
     </div>
