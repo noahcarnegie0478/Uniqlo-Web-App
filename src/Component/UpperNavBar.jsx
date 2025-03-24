@@ -2,7 +2,11 @@ import React from "react";
 import logo from "../assets/logo.png";
 import "boxicons";
 
-function UpperNavBar() {
+function UpperNavBar({ setTopic }) {
+  const ClickTopic = topic => {
+    setTopic(topic);
+    console.log(topic);
+  };
   return (
     <div className="px-20 fixed w-full">
       <div className="nav-bar-container font-md grid grid-cols-3 gap-4 h-20  ">
@@ -10,15 +14,24 @@ function UpperNavBar() {
           <img src={logo} alt="" />
         </div>
         <div className="topic h-20 flex justify-between items-center text-xl drop-shadow-lg">
-          <div className="men w-1/3 p-5 text-center hover:border-b-2 hover:font-bold">
+          <div
+            className="men w-1/3 p-5 text-center hover:border-b-2 hover:font-bold"
+            onClick={() => ClickTopic("Men")}
+          >
             {" "}
             <p className="shadow-md">MEN</p>{" "}
           </div>
-          <div className="Women w-1/3 p-5 text-center hover:border-b-2 hover:font-bold">
+          <div
+            className="Women w-1/3 p-5 text-center hover:border-b-2 hover:font-bold"
+            onClick={() => ClickTopic("Women")}
+          >
             {" "}
             <p>WOMEN</p>
           </div>
-          <div className="kid w-1/3 p-5 text-center hover:border-b-2 hover:font-bold">
+          <div
+            className="kid w-1/3 p-5 text-center hover:border-b-2 hover:font-bold"
+            onClick={() => ClickTopic("Kid")}
+          >
             {" "}
             <p>KID</p>
           </div>

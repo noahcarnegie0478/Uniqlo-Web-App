@@ -6,6 +6,7 @@ import axios from "axios";
 
 function Home() {
   const [banners, setBanner] = useState([]);
+  const [topic, setTopic] = useState("Men");
 
   const fetchBanner = async () => {
     const result = await axios.get("http://localhost:3000/api/banner/");
@@ -16,9 +17,9 @@ function Home() {
   }, []);
   return (
     <div className="text-white  relative min-h-screen bg-gray-500">
-      <UpperNavBar />
+      <UpperNavBar setTopic={setTopic} />
       {banners.length != 0 ? (
-        <HomePageContent banners={banners} />
+        <HomePageContent banners={banners} topic={topic} />
       ) : (
         <div>Loading ...</div>
       )}
