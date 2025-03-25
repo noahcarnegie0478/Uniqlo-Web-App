@@ -34,7 +34,7 @@ function Category({ topic }) {
     }
   }
   return (
-    <div className="bg-gray-200 h-screen w-screen p-60 ">
+    <div className="bg-gray-800 h-screen w-screen p-60 ">
       {categories.length != 0 ? (
         <div className="grid grid-cols-3 grid-rows-4 gap-4 px-20 ">
           {categories.map(category => (

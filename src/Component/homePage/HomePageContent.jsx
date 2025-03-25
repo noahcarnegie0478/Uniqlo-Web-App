@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, Element } from "react-scroll";
-import image1 from "../assets/menbanner1.jpg";
 
 function HomePageContent({ banners, topic }) {
   function DisplayBanner(banner) {

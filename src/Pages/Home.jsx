@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import UpperNavBar from "../Component/UpperNavBar";
-import LowerNavbar from "../Component/LowerNavbar";
-import HomePageContent from "../Component/HomePageContent";
+import UpperNavBar from "../Component/homePage/UpperNavBar";
+import LowerNavbar from "../Component/homePage/LowerNavbar";
+import HomePageContent from "../Component/homePage/HomePageContent";
 import axios from "axios";
 import Category from "../Component/Category";
 
@@ -13,6 +13,7 @@ function Home() {
   const fetchBanner = async () => {
     const result = await axios.get("http://localhost:3000/api/banner/");
     setBanner(result.data);
+    console.log(result.data);
   };
   useEffect(() => {
     fetchBanner();
