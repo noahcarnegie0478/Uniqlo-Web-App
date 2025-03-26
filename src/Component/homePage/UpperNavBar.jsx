@@ -13,13 +13,13 @@ function UpperNavBar({ setTopic }) {
         <div className="logo w-25 ">
           <img src={logo} alt="" />
         </div>
-        <div className="topic h-20 flex justify-between items-center text-xl drop-shadow-lg">
+        <div className="topic h-20 flex justify-between items-center text-xl ">
           <div
             className="men w-1/3 p-5 text-center hover:border-b-2 hover:font-bold"
             onClick={() => ClickTopic("Men")}
           >
             {" "}
-            <p className="shadow-md">MEN</p>{" "}
+            <p className="">MEN</p>{" "}
           </div>
           <div
             className="Women w-1/3 p-5 text-center hover:border-b-2 hover:font-bold"
