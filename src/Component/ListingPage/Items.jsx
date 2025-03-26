@@ -12,6 +12,7 @@ function Items({ items, setItems }) {
     });
     setItems(result.data);
   };
+  const checkCategory = () => {};
 
   useEffect(() => {
     getItems();

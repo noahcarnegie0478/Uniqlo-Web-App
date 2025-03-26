@@ -16,7 +16,7 @@ function Filter({ setItems }) {
     setItems(result.data);
   };
   return (
-    <div className="filter h-30 bg-red-200 px-50 text-black font-bold">
+    <div className="filter  text-black font-bold">
       <div className="filter-form py-5 flex gap-4 items-center">
         <div className="rounded-full  ">
           <div className=" p-1 pl-2  ">
@@ -26,9 +26,9 @@ function Filter({ setItems }) {
             ></box-icon>
           </div>
         </div>
-        <div className="material h-10  w-30 rounded-full text-center">
+        <div className="material h-10 w-30 rounded-full text-center">
           <select
-            className="w-full p-1 pl-2 rounded-full bg-white border-1 hover:bg-gray-200 rounded-full"
+            className="w-full p-1 pl-2 rounded-full bg-white border-1 hover:bg-gray-200"
             name=""
             id=""
             onChange={e =>
@@ -43,7 +43,7 @@ function Filter({ setItems }) {
         </div>
         <div className="colour w-30 rounded-full">
           <select
-            className="w-full rounded-full p-1 pl-2 bg-white border-1 hover:bg-gray-200 rounded-full"
+            className="w-full rounded-full p-1 pl-2 bg-white border-1 hover:bg-gray-200"
             name=""
             id=""
             onChange={e =>
@@ -58,7 +58,7 @@ function Filter({ setItems }) {
         </div>
         <div className="price  w-30 rounded-full">
           <select
-            className="w-full rounded-full p-1 pl-2 rounded bg-white border-1 rounded-full"
+            className="w-full rounded-full p-1 pl-2 rounded bg-white border-1"
             name=""
             id=""
             onChange={e =>

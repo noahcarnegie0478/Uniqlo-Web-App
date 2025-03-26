@@ -5,6 +5,7 @@ import LowerNavbar from "../Component/homePage/LowerNavbar";
 import Category from "../Component/Category";
 import { Element } from "react-scroll";
 import Filter from "../Component/ListingPage/filter";
+import Sort from "../Component/ListingPage/Sort";
 
 function ListingPage() {
   const [items, setItems] = useState([]);
@@ -24,7 +25,10 @@ function ListingPage() {
             <div className="h-50 bg-white"></div>
           </Element>
           <Element>
-            <Filter setItems={setItems} />
+            <div className="flex justify-between items-center px-50 border-1 ">
+              <Filter setItems={setItems} />
+              <Sort items={items} setItems={setItems} />
+            </div>
           </Element>
           <Element>
             <Items items={items} setItems={setItems} />

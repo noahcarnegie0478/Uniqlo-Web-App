@@ -21,7 +21,9 @@ function Card({ item }) {
                   height: "30px",
                   backgroundColor: color.colorImg,
                   borderRadius: "20px",
+                  border: "1px solid",
                 }}
+                key={color.code}
               ></div>
             ))}
           </div>
