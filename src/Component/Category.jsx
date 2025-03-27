@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 
 function Category({ topic }) {
   const [categories, setCategories] = useState([]);
+
   const getCategory = async () => {
     const result = await axios.get("http://localhost:3000/api/category");
     setCategories(result.data);
@@ -37,7 +38,7 @@ function Category({ topic }) {
     }
   }
   return (
-    <div className="bg-gray-800 h-screen w-screen p-60 ">
+    <div className="bg-gray-200 h-screen w-screen p-60 ">
       {categories.length != 0 ? (
         <div className="grid grid-cols-3 grid-rows-4 gap-4 px-20 ">
           {categories.map(category => (
@@ -46,12 +47,12 @@ function Category({ topic }) {
             </React.Fragment>
           ))}
           <div></div>
-          <div className="search-bar row-start-4 h-10  w-full  col-start-1 col-end-4 flex justify-center gap-4 ">
+          <div className="search-bar row-start-4 h-10  w-full col-span-3 bg-white flex justify-center gap-4 ">
             <input
               type="text"
               alt="searchItem"
               placeholder="search by name, items number,..."
-              className="p-2 w-2/5 rounded-lg border"
+              className="p-2 w-4/5 rounded-lg border"
             />
             <button className="p-2 rounded-lg border text-black hover:inset-shadow-sm hover:text-white hover:font-bold">
               search
