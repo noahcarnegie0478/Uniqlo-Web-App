@@ -18,7 +18,7 @@ function Filter() {
     setItems(result.data);
   };
   return (
-    <div className="filter  text-black font-bold">
+    <div className="filter text-black font-bold sticky top-5">
       <div className="filter-form py-5 flex gap-4 items-center">
         <div className="rounded-full  ">
           <div className=" p-1 pl-2  ">

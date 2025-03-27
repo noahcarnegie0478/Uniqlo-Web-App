@@ -10,32 +10,39 @@ import Category from "../Component/Category";
 
 function ListingPage() {
   const { category } = useContext(itemsContext);
+
   return (
-    <div className="bg-red-200 h-screen">
+    <div className="relative min-h-screen ">
       <UpperNavBar />
 
       {category ? (
         <Category />
       ) : (
-        <div className="content-listing grid grid-rows-4 bg-white h-3/4 snap-y snap-mandatory ">
+        <div className="content-listing  border-1">
+          <div className="sticky top-20 flex justify-between items-center px-50 h-20  bg-white">
+            <Filter />
+            <Sort />
+          </div>
           <Element
             name="section1"
             style={{
-              height: "100vh",
-              overflow: "scroll",
+              height: "calc(100vh - 80px)",
+              overflowY: "auto",
             }}
           >
             <Element>
-              <div className="h-50 bg-white"></div>
-            </Element>
-            <Element>
-              <div className="flex justify-between items-center px-50 border-1 ">
-                <Filter />
-                <Sort />
+              <div className="footer h-20 w-screen bg-gray-400">
+                <p> This is the spare for Image</p>
               </div>
             </Element>
             <Element>
               <Items />
+            </Element>
+
+            <Element>
+              <div className="footer h-20 w-screen bg-gray-400">
+                <p> This is the spare for Footer</p>
+              </div>
             </Element>
           </Element>
         </div>

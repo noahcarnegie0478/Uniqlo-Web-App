@@ -13,7 +13,7 @@ function Items() {
 
   return (
     <div className=" row-start-2 row-end-5 px-50 text-black ">
-      <div className="  h-full ">
+      <div className=" ">
         {items.length != 0 ? (
           <div className="grid grid-cols-4 gap-2 ">
             {items.map(item => (

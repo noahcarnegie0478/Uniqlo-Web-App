@@ -7,7 +7,6 @@ function UpperNavBar() {
   const { setTopic } = useContext(itemsContext);
   const ClickTopic = topic => {
     setTopic(topic);
-    console.log(topic);
   };
   return (
     <div className="px-20 fixed w-full">

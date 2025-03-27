@@ -18,7 +18,6 @@ export const ItemProvider = ({ children }) => {
     });
 
     setItems(result.data);
-    console.log(items);
   };
 
   const getCategory = async () => {
@@ -29,9 +28,8 @@ export const ItemProvider = ({ children }) => {
   const fetchBanner = async () => {
     const result = await axios.get("http://localhost:3000/api/banner/");
     setBanner(result.data);
-    console.log(result.data);
   };
-  
+
   return (
     <itemsContext.Provider
       value={{

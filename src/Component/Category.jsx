@@ -49,7 +49,7 @@ function Category() {
     if (category.category.tag === topic) {
       return (
         <div
-          className={`${visible}  w-full text-lg text-white font-semibold flex gap-2 items-center p-5 rounded-md shadow-lg hover:inset-shadow-sm`}
+          className={`${visible}  w-full text-lg font-semibold flex gap-2 items-center p-5 rounded-md shadow-lg hover:inset-shadow-sm`}
           key={category.id}
           onClick={() => {
             const value =
@@ -72,7 +72,7 @@ function Category() {
     }
   }
   return (
-    <div className="bg-gray-200 h-screen w-screen p-60 ">
+    <div className="bg-white h-screen w-screen p-60 text-black ">
       {categories?.length != 0 ? (
         <div className="grid grid-cols-3 grid-rows-4 gap-4 px-20 ">
           {categories?.map(category => (
@@ -82,15 +82,17 @@ function Category() {
           ))}
           <div></div>
           <div className="search-bar row-start-4 h-10  w-full col-span-3 bg-white flex justify-center gap-4 ">
-            <input
-              type="text"
-              alt="searchItem"
-              placeholder="search by name, items number,..."
-              className="p-2 w-4/5 rounded-lg border"
-              onChange={e => setSearchItem(e.target.value)}
-            />
+            <div className="p-2 w-full rounded-lg  border-1">
+              <input
+                type="text"
+                alt="searchItem"
+                placeholder="search by keyword"
+                className="w-full h-full py-2"
+                onChange={e => setSearchItem(e.target.value)}
+              />
+            </div>
             <button
-              className="p-2 rounded-lg border text-black hover:inset-shadow-sm hover:text-white hover:font-bold"
+              className="p-2 rounded-lg border text-black hover:inset-shadow-sm hover:text-white hover:font-bold active:bg-black active:text-white"
               onClick={() => HandleSearching(searchItem)}
             >
               search

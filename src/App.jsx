@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Router>
-        <div className="min-h-screen">
+        <div className=" min-h-screen">
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/listing" element={<ListingPage />}></Route>
