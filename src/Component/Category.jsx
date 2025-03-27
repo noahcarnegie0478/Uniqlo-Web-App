@@ -11,13 +11,16 @@ function Category({ topic }) {
   useEffect(() => {
     getCategory();
   }, []);
+
   function CategoryTopic(category) {
-    console.log();
     if (category.category.tag === topic) {
       return (
         <div
           className="w-full text-lg text-white font-semibold flex gap-2 items-center p-5 rounded-md shadow-lg hover:inset-shadow-sm"
           key={category.id}
+          onClick={() =>
+            console.log(category.category.tag, " & ", category.category.title)
+          }
         >
           <div className="image-category">
             <img
@@ -38,21 +41,6 @@ function Category({ topic }) {
       {categories.length != 0 ? (
         <div className="grid grid-cols-3 grid-rows-4 gap-4 px-20 ">
           {categories.map(category => (
-            // <div
-            //   className="bg-red-200 w-full text-lg font-semibold flex gap-2 items-center"
-            //   key={category.id}
-            // >
-            //   <div className="image-category">
-            //     <img
-            //       src={category.image_path}
-            //       alt="category"
-            //       style={{ width: "100px", height: "100px" }}
-            //     />
-            //   </div>
-            //   <div className="title-category">
-            //     <p>{category.title}</p>
-            //   </div>
-            // </div>
             <React.Fragment>
               <CategoryTopic category={category} />
             </React.Fragment>

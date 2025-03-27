@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import "boxicons";
-function Filter({ setItems }) {
+import { itemsContext } from "../../Context/ItemProvider";
+function Filter() {
+  const { setItems } = useContext(itemsContext);
   const [input, setInput] = useState({
     colors: "*",
     material: "*",

@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "boxicons";
 import Card from "./card";
+import { itemsContext } from "../../Context/ItemProvider";
 
-function Items({ items, setItems }) {
-  const [keywords, setKeyWords] = useState("Jean");
-
-  const getItems = async () => {
-    const result = await axios.post("http://localhost:3000/api/item/fulltext", {
-      input: keywords,
-    });
-    setItems(result.data);
-  };
-  const checkCategory = () => {};
+function Items() {
+  const { items, getItems } = useContext(itemsContext);
 
   useEffect(() => {
     getItems();

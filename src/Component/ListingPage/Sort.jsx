@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "boxicons";
+import { itemsContext } from "../../Context/ItemProvider";
 
-function Sort({ items, setItems }) {
+function Sort() {
+  const { items, setItems } = useContext(itemsContext);
   const [sort, setSort] = useState("");
   //old to new
   const OldtoNew = () => {
