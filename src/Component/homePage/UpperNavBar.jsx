@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../assets/logo.png";
 import "boxicons";
+import { itemsContext } from "../../Context/ItemProvider";
 
-function UpperNavBar({ setTopic }) {
+function UpperNavBar() {
+  const { setTopic } = useContext(itemsContext);
   const ClickTopic = topic => {
     setTopic(topic);
     console.log(topic);

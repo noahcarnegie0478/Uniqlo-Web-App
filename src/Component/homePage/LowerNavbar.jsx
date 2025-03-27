@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "boxicons";
+import { itemsContext } from "../../Context/ItemProvider";
 
-function LowerNavbar({ category, setCategory }) {
+function LowerNavbar() {
+  const { category, setCategory } = useContext(itemsContext);
+
   return (
     <div className="absolute bottom-5 left-0 flex justify-center w-full ">
       <div className="LowerNavbar  w-1/3 flex justify-between items-center gap-4">

@@ -1,27 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import logo from "../assets/logo.png";
+import { useLocation } from "react-router-dom";
+import { itemsContext } from "../Context/ItemProvider";
+import { useNavigate } from "react-router-dom";
 
-function Category({ topic }) {
-  const [categories, setCategories] = useState([]);
-
-  const getCategory = async () => {
-    const result = await axios.get("http://localhost:3000/api/category");
-    setCategories(result.data);
+function Category() {
+  const {
+    setKeyWords,
+    keywords,
+    categories,
+    topic,
+    getCategory,
+    visible,
+    category,
+    setCategory,
+    getItems,
+  } = useContext(itemsContext);
+  const location = useLocation();
+  const [searchItem, setSearchItem] = useState("");
+  const navigate = useNavigate();
+  const HandleTransfer = value => {
+    setKeyWords(value);
+    setCategory(!category);
+  };
+  const HandleSearching = value => {
+    const ValueToString = value.split(" ");
+    if (ValueToString.length != 1) {
+      setKeyWords(ValueToString.join(" & "));
+    } else {
+      setKeyWords(value);
+    }
+    setCategory(!category);
   };
   useEffect(() => {
     getCategory();
   }, []);
+  useEffect(() => {
+    if (location.pathname !== "/listing") {
+      if (keywords !== "Men") {
+        navigate("/listing");
+      }
+    } else {
+      getItems(keywords);
+    }
+  }, [keywords]);
 
   function CategoryTopic(category) {
     if (category.category.tag === topic) {
       return (
         <div
-          className="w-full text-lg text-white font-semibold flex gap-2 items-center p-5 rounded-md shadow-lg hover:inset-shadow-sm"
+          className={`${visible}  w-full text-lg text-white font-semibold flex gap-2 items-center p-5 rounded-md shadow-lg hover:inset-shadow-sm`}
           key={category.id}
-          onClick={() =>
-            console.log(category.category.tag, " & ", category.category.title)
-          }
+          onClick={() => {
+            const value =
+              category.category.tag + " & " + category.category.title;
+            HandleTransfer(value);
+          }}
         >
           <div className="image-category">
             <img
@@ -39,9 +73,9 @@ function Category({ topic }) {
   }
   return (
     <div className="bg-gray-200 h-screen w-screen p-60 ">
-      {categories.length != 0 ? (
+      {categories?.length != 0 ? (
         <div className="grid grid-cols-3 grid-rows-4 gap-4 px-20 ">
-          {categories.map(category => (
+          {categories?.map(category => (
             <React.Fragment>
               <CategoryTopic category={category} />
             </React.Fragment>
@@ -53,8 +87,12 @@ function Category({ topic }) {
               alt="searchItem"
               placeholder="search by name, items number,..."
               className="p-2 w-4/5 rounded-lg border"
+              onChange={e => setSearchItem(e.target.value)}
             />
-            <button className="p-2 rounded-lg border text-black hover:inset-shadow-sm hover:text-white hover:font-bold">
+            <button
+              className="p-2 rounded-lg border text-black hover:inset-shadow-sm hover:text-white hover:font-bold"
+              onClick={() => HandleSearching(searchItem)}
+            >
               search
             </button>
           </div>

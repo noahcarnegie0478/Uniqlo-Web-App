@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Element } from "react-scroll";
+import { itemsContext } from "../../Context/ItemProvider";
 
-function HomePageContent({ banners, topic }) {
+function HomePageContent() {
+  const { banners, topic } = useContext(itemsContext);
   function DisplayBanner(banner) {
     if (banner.topic === topic) {
       if (banner.price === 0) {
@@ -81,7 +83,7 @@ function HomePageContent({ banners, topic }) {
             overflow: "scroll",
           }}
         >
-          {banners.map((banner, index) => (
+          {banners?.map((banner, index) => (
             <React.Fragment key={index}>{DisplayBanner(banner)}</React.Fragment>
           ))}
         </Element>
