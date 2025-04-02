@@ -4,6 +4,7 @@ import { itemsContext } from "../../Context/ItemProvider";
 
 function HomePageContent() {
   const { banners, topic } = useContext(itemsContext);
+  // REVIEW - The below functional component can be separated from the parent functional component. Avoid declaring functional components/functions in a function/functional component unless it's more maintainable to do so
   function DisplayBanner(banner) {
     if (banner.topic === topic) {
       if (banner.price === 0) {
