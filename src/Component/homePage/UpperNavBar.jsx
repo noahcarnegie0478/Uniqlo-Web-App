@@ -15,6 +15,7 @@ function UpperNavBar() {
           <img src={logo} alt="" />
         </div>
         <div className="topic h-20 flex justify-between items-center text-xl ">
+          {/* REVIEW - from line 20 to 40, the repetitive code can be removed by implementing a functional component*/}
           <div
             className="men w-1/3 p-5 text-center hover:border-b-2 hover:font-bold"
             onClick={() => ClickTopic("Men")}
