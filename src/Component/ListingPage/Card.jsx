@@ -7,6 +7,7 @@ function Card({ item }) {
       key={item.item_id}
     >
       {/* image  */}
+      {/* REVIEW - This code will not be maintainable - separate each section (i.e. image, topic, size...) to a separate functional component*/}
       <div className="image-item row-start-1 row-end-3 hover:drop-shadow-lg">
         <img src={item.image_paths[0]} alt="image-item" />
       </div>
@@ -14,6 +15,7 @@ function Card({ item }) {
         {/* colour */}
         <div className="first-line flex justify-between items-center">
           <div className="colour-item flex gap-2 ">
+            {/* REVIEW - The below component can use tailwind to style - checkout https://tailwindcss.com/docs/styling-with-utility-classes#using-arbitrary-values*/}
             {item.colors.map(color => (
               <div
                 style={{
