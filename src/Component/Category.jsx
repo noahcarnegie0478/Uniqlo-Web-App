@@ -45,6 +45,7 @@ function Category() {
     }
   }, [keywords]);
 
+  {/* REVIEW - Avoid declaring functional component inside another functional component*/}
   function CategoryTopic(category) {
     if (category.category.tag === topic) {
       return (
