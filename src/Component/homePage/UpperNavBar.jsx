@@ -8,8 +8,9 @@ function UpperNavBar() {
   const ClickTopic = topic => {
     setTopic(topic);
   };
+
   return (
-    <div className="px-20 fixed w-full">
+    <div className={`px-20 fixed w-full `}>
       <div className="nav-bar-container font-md grid grid-cols-3 gap-4 h-20  ">
         <div className="logo w-25 ">
           <img src={logo} alt="" />

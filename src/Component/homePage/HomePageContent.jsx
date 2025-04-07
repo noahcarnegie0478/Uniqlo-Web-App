@@ -1,81 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link, Element } from "react-scroll";
 import { itemsContext } from "../../Context/ItemProvider";
+import DisplayBanner from "./DisplayBanner";
 
 function HomePageContent() {
-  const { banners, topic } = useContext(itemsContext);
-  function DisplayBanner(banner) {
-    if (banner.topic === topic) {
-      if (banner.price === 0) {
-        return (
-          <Element
-            name="firstInsideContainer"
-            style={{
-              height: "100vh",
-              backgroundImage: `url(${banner.image})`,
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            <div className="homeContent h-full grid grid-rows-5 gap-4">
-              <div className="row-start-3 row-end-5 p-40">
-                <div className="HomeMainContent">
-                  <div className="title text-3xl font-semibold py-1 drop-shadow-md ">
-                    {" "}
-                    <p>{banner.title}</p>
-                  </div>
-                  <div className="description text-xl font-md py-1 drop-shadow-s">
-                    {" "}
-                    <p>{banner.description}</p>
-                  </div>
-                  <div className="sub-description text-lg font-semibold py-1 drop-shadow-md">
-                    {" "}
-                    <p>{banner.sub_decription}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Element>
-        );
-      }
-      return (
-        <Element
-          name="firstInsideContainer"
-          style={{
-            height: "100vh",
-            backgroundImage: `url(${banner.image})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className="homeContent h-full grid grid-rows-5 gap-4">
-            <div className="row-start-3 row-end-5 p-40">
-              <div className="HomeMainContent">
-                <div className="title text-3xl font-semibold py-1 drop-shadow-md ">
-                  {" "}
-                  <p>{banner.title}</p>
-                </div>
-                <div className="description text-xl font-md py-1 drop-shadow-s">
-                  {" "}
-                  <p>{banner.description}</p>
-                </div>
-                <div className="sub-description text-lg font-semibold py-1 drop-shadow-md">
-                  {" "}
-                  <p>{banner.sub_decription}</p>
-                </div>
-                <div className="price py-2 font-bold text-4xl drop-shadow-sm">
-                  ${banner.price}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Element>
-      );
-    }
-  }
+  const { banners } = useContext(itemsContext);
+  console.log(banners);
+
   return (
     <div>
-      <div className="h-screen snap-y snap-mandatory">
+      <div className="h-screen snap-y snap-mandatory text-white">
         <Element
           name="section1"
           style={{
@@ -83,8 +17,8 @@ function HomePageContent() {
             overflow: "scroll",
           }}
         >
-          {banners?.map((banner, index) => (
-            <React.Fragment key={index}>{DisplayBanner(banner)}</React.Fragment>
+          {banners?.map(banner => (
+            <DisplayBanner banner={banner} />
           ))}
         </Element>
       </div>

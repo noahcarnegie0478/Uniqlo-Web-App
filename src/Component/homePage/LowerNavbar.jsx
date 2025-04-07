@@ -13,7 +13,10 @@ function LowerNavbar() {
         </div>
         <div
           className="search-icon bg-white text-center py-7 px-8 rounded-full drop-shadow-md hover:drop-shadow-xl hover:bg-gray-200 "
-          onClick={() => setCategory(!category)}
+          onClick={() => {
+            setCategory(!category);
+            console.log("thay doi do nut bam");
+          }}
         >
           <box-icon
             name="search"

@@ -13,7 +13,7 @@ function Home() {
     fetchBanner();
   }, []);
   return (
-    <div className="text-white relative min-h-screen bg-gray-500">
+    <div className="relative min-h-screen bg-gray-500">
       <UpperNavBar />
       {category ? (
         <Category />

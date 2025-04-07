@@ -62,11 +62,6 @@ function Card({ item }) {
           <p className=" text-md font-bold">{item.rating}</p>
         </div>
       </div>
-
-      {/* ten  */}
-
-      {/* gia  */}
-      {/* rate */}
     </div>
   );
 }
