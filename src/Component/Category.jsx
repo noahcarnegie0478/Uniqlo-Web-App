@@ -57,7 +57,7 @@ function Category() {
               HandleTransfer={HandleTransfer}
             />
           ))}
-          <div></div>
+
           <div className="search-bar row-start-4 h-10  w-full col-span-3 bg-white flex justify-center gap-4 ">
             <div className="p-2 w-full rounded-lg  border-1">
               <input

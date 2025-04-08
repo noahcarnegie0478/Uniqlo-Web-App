@@ -28,7 +28,7 @@ function Filter() {
             ></box-icon>
           </div>
         </div>
-        <div className="material h-10 w-30 rounded-full text-center">
+        <div className="material w-30 rounded-full text-center">
           <select
             className="w-full p-1 pl-2 rounded-full bg-white border-1 hover:bg-gray-200"
             name=""
