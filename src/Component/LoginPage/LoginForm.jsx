@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { userContext } from "../../Context/userProvider";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const { setEmail, setPassword, checkAccount, error } =
+  const { setEmail, setPassword, checkAccount, error, user } =
     useContext(userContext);
+  const naviagte = useNavigate();
+
+  //   useEffect(() => {
+  //     if (user?.length != 0) {
+  //       naviagte("/");
+  //     }
+  //   }, [user]);
   return (
     <div>
       <form className="max-w-sm mx-auto p-20 border-2 rounded-md flex flex-col items-center">

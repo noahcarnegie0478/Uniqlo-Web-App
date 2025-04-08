@@ -3,13 +3,14 @@ import axios from "axios";
 
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
   const [isValid, SetValid] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+  //   console.log(user);
   // account Valid cheking
   const checkAccount = () => {
     console.log("running");
@@ -21,8 +22,10 @@ export const UserProvider = ({ children }) => {
       setError("This could not leave empty");
     } else if (password.length < 8) {
       setError("Your password is not valid, please try again");
+    } else {
+      setError("");
+      SetValid(true);
     }
-    SetValid(true);
   };
 
   const LoginUser = async () => {
@@ -33,8 +36,26 @@ export const UserProvider = ({ children }) => {
       });
       console.log("email: ", email);
       console.log("password:", password);
-      const token = response.data.token;
+      const token = await response.data.token;
       console.log(token);
+      await navigateUserToProfile(token);
+      SetValid(false);
+    } catch (error) {
+      console.log(error);
+      SetValid(false);
+    }
+  };
+  const navigateUserToProfile = async token => {
+    try {
+      const response = await axios.get("http://localhost:3000/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+      setUser(response.data);
+
+      console.log(user);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +63,6 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isValid) {
       LoginUser();
-      SetValid(false);
     }
   }, [isValid]);
 
@@ -59,6 +79,8 @@ export const UserProvider = ({ children }) => {
         SetValid,
         checkAccount,
         LoginUser,
+        user,
+        setUser,
       }}
     >
       {" "}
