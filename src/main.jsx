@@ -5,11 +5,4 @@ import { ItemProvider } from "./Context/ItemProvider.jsx";
 import { UserProvider } from "./Context/userProvider.jsx";
 import Wrapper from "./Wrapper.jsx";
 
-createRoot(document.getElementById("root")).render(
-  // <UserProvider>
-  //   <ItemProvider>
-  //     <App />
-  //   </ItemProvider>
-  // </UserProvider>
-  <Wrapper />
-);
+createRoot(document.getElementById("root")).render(<Wrapper />);
