@@ -6,7 +6,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [favourite, setFavourite] = useState([]);
+
   const [favouriteID, setfavouriteID] = useState([]);
   const [error, setError] = useState("");
   const [isValid, SetValid] = useState(false);
@@ -118,8 +118,7 @@ export const UserProvider = ({ children }) => {
         LoginUser,
         user,
         setUser,
-        favourite,
-        setFavourite,
+
         favouriteID,
         setfavouriteID,
         updateFavourite,
