@@ -1,7 +1,7 @@
 import React from "react";
 
 function WishList() {
-  
+
   return (
     <div className="mt-50 bg-green mx-60 border-1 p-10">
       {/* thut vao 30px moi ben, va cach 200px tinh tu top */}
