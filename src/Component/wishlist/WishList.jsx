@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { userContext } from "../../Context/userProvider";
+import React from "react";
+
 import FavouriteCard from "./FavouriteCard";
 
 function WishList() {
