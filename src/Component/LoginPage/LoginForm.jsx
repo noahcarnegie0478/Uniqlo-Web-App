@@ -7,14 +7,22 @@ function LoginForm() {
     useContext(userContext);
   const naviagte = useNavigate();
 
-  //   useEffect(() => {
-  //     if (user?.length != 0) {
-  //       naviagte("/");
-  //     }
-  //   }, [user]);
+  useEffect(() => {
+    if (user?.length != 0) {
+      naviagte("/profile");
+    }
+  }, [user]);
+  const handleSubmission = e => {
+    e.preventDefault();
+    console.log("Form submited");
+  };
+
   return (
     <div>
-      <form className="max-w-sm mx-auto p-20 border-2 rounded-md flex flex-col items-center">
+      <form
+        className="max-w-sm mx-auto p-20 border-2 rounded-md flex flex-col items-center"
+        onSubmit={handleSubmission}
+      >
         <h2 className=" mb-5 font-bold text-lg">Login</h2>
         <div className="mb-5">
           <label

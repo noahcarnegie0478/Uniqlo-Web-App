@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { itemsContext } from "../../Context/ItemProvider";
 
 function CategoryTopic({ category, HandleTransfer }) {
-  console.log(category);
   const { topic } = useContext(itemsContext);
   if (category?.tag === topic) {
     return (
@@ -11,7 +10,6 @@ function CategoryTopic({ category, HandleTransfer }) {
         key={category.id}
         onClick={() => {
           const value = category?.tag + " & " + category?.title;
-
           HandleTransfer(value);
         }}
       >

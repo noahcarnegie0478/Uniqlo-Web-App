@@ -24,7 +24,7 @@ function Profile() {
             }}
           >
             <Element>
-              <div className="wishlist bg-white min-h-screen  ">
+              <div className="wishlist bg-white min-h-screen ">
                 <WishList />
               </div>
             </Element>

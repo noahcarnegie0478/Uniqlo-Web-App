@@ -7,6 +7,7 @@ import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 
 function App() {
+  console.log(localStorage);
   return (
     <>
       <Router>
