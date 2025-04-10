@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { userContext } from "../../Context/userProvider";
 
 function Card({ item }) {
+  const { favouriteID, setfavouriteID, updateFavourite } =
+    useContext(userContext);
+  const [love, setLove] = useState(false);
+  const handleFavourite = () => {
+    setfavouriteID(prev => [...prev, item.item_id]);
+    console.log("item has been clicked: ", item.item_id);
+    console.log("favouriteID:  ", favouriteID);
+    setLove(true);
+  };
+  useEffect(() => {
+    if (love) {
+      updateFavourite();
+      setLove(false);
+    }
+  }, [love]);
+
   return (
     <div
       className={`card-item ${item.item_id}  bg-white grid grid-rows-3 w-80 grid-flow-row hover:drop-shadow-xl  `}
@@ -27,7 +44,7 @@ function Card({ item }) {
               ></div>
             ))}
           </div>
-          <div className="favourite-icon">
+          <div className="favourite-icon" onClick={handleFavourite}>
             <box-icon
               name="heart"
               style={{ width: "35px", height: "35px" }}
