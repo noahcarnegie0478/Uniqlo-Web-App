@@ -6,9 +6,6 @@ function Card({ item }) {
     useContext(userContext);
 
   const handleFavourite = () => {
-    // setfavouriteID(prev => [...prev, item.item_id]);
-    // console.log("item has been clicked: ", item.item_id);
-    // console.log("favouriteID:  ", favouriteID);
     updateFavourite(item.item_id);
   };
 

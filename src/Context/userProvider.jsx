@@ -31,11 +31,6 @@ export const UserProvider = ({ children }) => {
       SetValid(true);
     }
   };
-  useEffect(() => {
-    if (login) {
-      handleWishlist(user);
-    }
-  }, [user]);
   const handleWishlist = async user => {
     if (user && user.favourite?.length > 0) {
       const result = await axios.post(
@@ -58,11 +53,7 @@ export const UserProvider = ({ children }) => {
       console.log("favourite change after fetch: ", favourite);
     }
   };
-  ////
-  //
-  //
-  ///
-  //
+
   const updateFavourite = async item_id => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
@@ -91,6 +82,19 @@ export const UserProvider = ({ children }) => {
           );
           console.log("result of the 1st: ", result);
           setFavourite(result.data);
+          const newUser = await axios.post(
+            "http://localhost:3000/api/users/getsbyid",
+            {
+              user_id: officialUser.id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(newUser);
+          setUser(newUser.data);
         } else {
           const result = await axios.post(
             "http://localhost:3000/api/item/fulltext",
@@ -100,6 +104,18 @@ export const UserProvider = ({ children }) => {
           );
           console.log("result of the 1st: ", result);
           setFavourite(result.data);
+          const newUser = await axios.post(
+            "http://localhost:3000/api/users/getsbyid",
+            {
+              user_id: officialUser.id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setUser(newUser);
         }
       }
     } catch (error) {
@@ -114,6 +130,9 @@ export const UserProvider = ({ children }) => {
       navigateUserToProfile();
     }
   }, [updated]);
+  useEffect(() => {
+    console.log("user after changed:", user);
+  }, [user]);
   const LoginUser = async () => {
     try {
       const response = await axios.post("http://localhost:3000/users/login", {
@@ -123,7 +142,6 @@ export const UserProvider = ({ children }) => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
       setLogin(true);
       localStorage.setItem("login", true.toString());
-
       await navigateUserToProfile();
       SetValid(false);
     } catch (error) {
@@ -145,6 +163,7 @@ export const UserProvider = ({ children }) => {
         }
       );
       if (response) {
+        handleWishlist(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
         setfavouriteID(response.data.favourite);
         setUser(await JSON.parse(localStorage.getItem("user")));
