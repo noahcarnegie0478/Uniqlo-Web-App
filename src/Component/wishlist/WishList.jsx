@@ -12,8 +12,8 @@ function WishList() {
         <p className="text-gray-800 p-2">(2 tiems)</p>
       </div>
       <div className="favouritecontainer ">
-        {favouriteItem.length > 0 ? (
-          favouriteItem.map(favourite => (
+        {favouriteItem?.length > 0 ? (
+          favouriteItem?.map(favourite => (
             <FavouriteCard favourite={favourite} />
           ))
         ) : (
