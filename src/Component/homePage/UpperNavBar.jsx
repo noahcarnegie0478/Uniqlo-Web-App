@@ -2,11 +2,19 @@ import React, { useContext } from "react";
 import logo from "../../assets/logo.png";
 import "boxicons";
 import { itemsContext } from "../../Context/ItemProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function UpperNavBar() {
   const { setTopic } = useContext(itemsContext);
+  const location = useLocation();
   const ClickTopic = topic => {
     setTopic(topic);
+  };
+  const navigate = useNavigate();
+  const navigatetoCart = () => {
+    if (location.pathname !== "/cart") {
+      navigate("/cart");
+    }
   };
 
   return (
@@ -56,7 +64,7 @@ function UpperNavBar() {
               className="hover:pb-1"
             ></box-icon>
           </div>
-          <div className="cart">
+          <div className="cart" onClick={() => navigatetoCart()}>
             {" "}
             <box-icon
               name="cart"

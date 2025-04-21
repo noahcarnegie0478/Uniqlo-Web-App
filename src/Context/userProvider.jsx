@@ -14,6 +14,8 @@ export const UserProvider = ({ children }) => {
   const [updated, setUpdated] = useState(false);
   const [login, setLogin] = useState(false);
   const [favourite, setFavourite] = useState([]);
+  const [cartID, setCartID] = useState([]);
+  const [cart, setCart] = useState([]);
 
   // account Valid cheking
   const checkAccount = () => {
@@ -32,7 +34,9 @@ export const UserProvider = ({ children }) => {
     }
   };
   const handleWishlist = async user => {
+    console.log(user.favourite.join(" | "));
     if (user && user.favourite?.length > 0) {
+      console.log("run");
       const result = await axios.post(
         "http://localhost:3000/api/item/fulltext",
         {
@@ -50,6 +54,29 @@ export const UserProvider = ({ children }) => {
       );
       console.log("result: ", result);
       setFavourite(result.data);
+      console.log("favourite change after fetch: ", favourite);
+    }
+  };
+  const handleCartList = async user => {
+    if (user && user.cart?.length > 0) {
+      console.log("run");
+      const result = await axios.post(
+        "http://localhost:3000/api/item/fulltext",
+        {
+          input: user.cart.map(array => array.id).join(" | "),
+        }
+      );
+      console.log("result of the 1st: ", result);
+      setCart(result.data);
+    } else {
+      const result = await axios.post(
+        "http://localhost:3000/api/item/fulltext",
+        {
+          input: user.cart.map(array => array.id).join(),
+        }
+      );
+      console.log("result: ", result);
+      setCart(result.data);
       console.log("favourite change after fetch: ", favourite);
     }
   };
@@ -164,8 +191,10 @@ export const UserProvider = ({ children }) => {
       );
       if (response) {
         handleWishlist(response.data);
+        handleCartList(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
         setfavouriteID(response.data.favourite);
+        setCartID(response.data.cart);
         setUser(await JSON.parse(localStorage.getItem("user")));
       }
     } catch (error) {
@@ -173,6 +202,72 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateToCart = async item_id => {
+    try {
+      const token = await JSON.parse(localStorage.getItem("token"));
+      const officialUser = JSON.parse(localStorage.getItem("user"));
+      const newArray = [...cartID, item_id];
+      console.log("new Cart: ", newArray);
+      const response = await axios.put(
+        `http://localhost:3000/api/users/updatecart/${officialUser.id}`,
+        { cart: newArray },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response) {
+        setCartID(newArray);
+        if (user && newArray.length > 1) {
+          const result = await axios.post(
+            "http://localhost:3000/api/item/fulltext",
+            {
+              input: newArray.map(array => array.id).join(" | "),
+            }
+          );
+          console.log("result cart ", result);
+          setCart(result.data);
+          const newUser = await axios.post(
+            "http://localhost:3000/api/users/getsbyid",
+            {
+              user_id: officialUser.id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(newUser);
+          setUser(newUser.data);
+        } else {
+          const result = await axios.post(
+            "http://localhost:3000/api/item/fulltext",
+            {
+              input: newArray.map(array => array.id).join(),
+            }
+          );
+          console.log("result of cart: ", result);
+          setCart(result.data);
+          const newUser = await axios.post(
+            "http://localhost:3000/api/users/getsbyid",
+            {
+              user_id: officialUser.id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setUser(newUser);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     if (isValid) {
       LoginUser();
@@ -204,6 +299,9 @@ export const UserProvider = ({ children }) => {
         favourite,
         setFavourite,
         handleWishlist,
+        updateToCart,
+        cart,
+        setCart,
       }}
     >
       {" "}

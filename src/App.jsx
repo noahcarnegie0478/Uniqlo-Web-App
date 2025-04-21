@@ -5,6 +5,7 @@ import ListingPage from "./Pages/ListingPage";
 import Texting from "./Pages/Texting";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
+import Cart from "./Pages/Cart";
 
 function App() {
   console.log(localStorage);
@@ -18,6 +19,7 @@ function App() {
             <Route path="/testing" element={<Texting />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
           </Routes>
         </div>
       </Router>

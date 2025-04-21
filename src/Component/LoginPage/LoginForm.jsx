@@ -3,7 +3,7 @@ import { userContext } from "../../Context/userProvider";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const { setEmail, setPassword, checkAccount, error, user } =
+  const { setEmail, setPassword, checkAccount, error, user, favourite } =
     useContext(userContext);
   const naviagte = useNavigate();
 

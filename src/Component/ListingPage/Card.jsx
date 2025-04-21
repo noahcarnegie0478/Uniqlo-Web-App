@@ -2,11 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../Context/userProvider";
 
 function Card({ item }) {
-  const { favouriteID, setfavouriteID, updateFavourite } =
-    useContext(userContext);
+  const { updateFavourite, updateToCart } = useContext(userContext);
 
   const handleFavourite = () => {
     updateFavourite(item.item_id);
+  };
+  const addToCart = () => {
+    updateToCart({
+      id: item.item_id,
+      quatity: 1,
+    });
   };
 
   return (
@@ -68,6 +73,14 @@ function Card({ item }) {
             style={{ width: "20px", height: "20px" }}
           ></box-icon>
           <p className=" text-md font-bold">{item.rating}</p>
+        </div>
+        <div className="add to cart py-1 flex gap-1 items-center">
+          <span
+            className=" text-md font-light text-red-300 mt-2"
+            onClick={() => addToCart()}
+          >
+            Add to cart
+          </span>
         </div>
       </div>
     </div>
