@@ -63,26 +63,45 @@ export const UserProvider = ({ children }) => {
   //
   ///
   //
-  const updateFavourite = async () => {
+  const updateFavourite = async item_id => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
       const officialUser = JSON.parse(localStorage.getItem("user"));
-      console.log("token after fetch: ", token),
-        console.log("favourite before fetch:", await favouriteID);
+      const newArray = [...favouriteID, item_id];
+
+      // console.log("favouriteId: ", favouriteID);
+      console.log("new Array: ", newArray);
       const response = await axios.put(
         `http://localhost:3000/api/users/update/${officialUser.id}`,
-        { favourite: favouriteID },
+        { favourite: newArray },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      setUpdated(true);
-
-      console.log(response.data);
-      console.log("succesfully set up favourite:", favouriteID);
-      return response;
+      if (response) {
+        setfavouriteID(newArray);
+        if (user && newArray.length > 1) {
+          const result = await axios.post(
+            "http://localhost:3000/api/item/fulltext",
+            {
+              input: newArray.join(" | "),
+            }
+          );
+          console.log("result of the 1st: ", result);
+          setFavourite(result.data);
+        } else {
+          const result = await axios.post(
+            "http://localhost:3000/api/item/fulltext",
+            {
+              input: newArray.join(),
+            }
+          );
+          console.log("result of the 1st: ", result);
+          setFavourite(result.data);
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +112,6 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (updated) {
       navigateUserToProfile();
-      setUpdated(false);
     }
   }, [updated]);
   const LoginUser = async () => {
@@ -126,10 +144,11 @@ export const UserProvider = ({ children }) => {
           },
         }
       );
-      console.log(response);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      setUser(await JSON.parse(localStorage.getItem("user")));
-      console.log(user);
+      if (response) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        setfavouriteID(response.data.favourite);
+        setUser(await JSON.parse(localStorage.getItem("user")));
+      }
     } catch (error) {
       console.log(error);
     }
