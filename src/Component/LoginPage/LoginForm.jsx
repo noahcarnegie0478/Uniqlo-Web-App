@@ -8,6 +8,7 @@ function LoginForm() {
   const naviagte = useNavigate();
 
   useEffect(() => {
+    console.log(user);
     if (user?.length != 0) {
       naviagte("/profile");
     }

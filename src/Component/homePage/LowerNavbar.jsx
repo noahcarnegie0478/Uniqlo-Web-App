@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import "boxicons";
 import { itemsContext } from "../../Context/ItemProvider";
+import { useNavigate } from "react-router-dom";
 
 function LowerNavbar() {
   const { category, setCategory } = useContext(itemsContext);
+  const navigate = useNavigate();
 
   return (
     <div className="absolute bottom-5 left-0 flex justify-center w-full ">
@@ -23,7 +25,12 @@ function LowerNavbar() {
             style={{ width: "40px", height: "40px" }}
           ></box-icon>
         </div>
-        <div className="profile-icon bg-white text-center py-6 px-7 drop-shadow-md rounded-full hover:drop-shadow-xl hover:bg-gray-200">
+        <div
+          className="profile-icon bg-white text-center py-6 px-7 drop-shadow-md rounded-full hover:drop-shadow-xl hover:bg-gray-200"
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
           <box-icon name="user" type="solid"></box-icon>
         </div>
       </div>

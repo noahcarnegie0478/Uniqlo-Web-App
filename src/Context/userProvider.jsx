@@ -1,17 +1,19 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { itemsContext } from "./ItemProvider";
 
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [favouriteID, setfavouriteID] = useState([]);
   const [error, setError] = useState("");
   const [isValid, SetValid] = useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [updated, setUpdated] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [favourite, setFavourite] = useState([]);
 
   // account Valid cheking
   const checkAccount = () => {
@@ -29,14 +31,44 @@ export const UserProvider = ({ children }) => {
       SetValid(true);
     }
   };
-
+  useEffect(() => {
+    if (login) {
+      handleWishlist(user);
+    }
+  }, [user]);
+  const handleWishlist = async user => {
+    if (user && user.favourite?.length > 0) {
+      const result = await axios.post(
+        "http://localhost:3000/api/item/fulltext",
+        {
+          input: user.favourite.join(" | "),
+        }
+      );
+      console.log("result of the 1st: ", result);
+      setFavourite(result.data);
+    } else {
+      const result = await axios.post(
+        "http://localhost:3000/api/item/fulltext",
+        {
+          input: user.favourite.join(),
+        }
+      );
+      console.log("result: ", result);
+      setFavourite(result.data);
+      console.log("favourite change after fetch: ", favourite);
+    }
+  };
+  ////
+  //
+  //
+  ///
+  //
   const updateFavourite = async () => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
       const officialUser = JSON.parse(localStorage.getItem("user"));
       console.log("token after fetch: ", token),
-        console.log("user after fetch: ", officialUser);
-
+        console.log("favourite before fetch:", await favouriteID);
       const response = await axios.put(
         `http://localhost:3000/api/users/update/${officialUser.id}`,
         { favourite: favouriteID },
@@ -47,6 +79,7 @@ export const UserProvider = ({ children }) => {
         }
       );
       setUpdated(true);
+
       console.log(response.data);
       console.log("succesfully set up favourite:", favouriteID);
       return response;
@@ -54,11 +87,13 @@ export const UserProvider = ({ children }) => {
       console.log(error);
     }
   };
+  //
+  //
+  //
   useEffect(() => {
     if (updated) {
       navigateUserToProfile();
-      const officialUser = JSON.parse(localStorage.getItem("user"));
-      setfavouriteID(officialUser.favourite);
+      setUpdated(false);
     }
   }, [updated]);
   const LoginUser = async () => {
@@ -68,6 +103,9 @@ export const UserProvider = ({ children }) => {
         password: password,
       });
       localStorage.setItem("token", JSON.stringify(response.data.token));
+      setLogin(true);
+      localStorage.setItem("login", true.toString());
+
       await navigateUserToProfile();
       SetValid(false);
     } catch (error) {
@@ -75,6 +113,7 @@ export const UserProvider = ({ children }) => {
       SetValid(false);
     }
   };
+
   const navigateUserToProfile = async () => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
@@ -89,8 +128,7 @@ export const UserProvider = ({ children }) => {
       );
       console.log(response);
       localStorage.setItem("user", JSON.stringify(response.data));
-      setUser(JSON.parse(localStorage.getItem("user")));
-
+      setUser(await JSON.parse(localStorage.getItem("user")));
       console.log(user);
     } catch (error) {
       console.log(error);
@@ -118,10 +156,16 @@ export const UserProvider = ({ children }) => {
         LoginUser,
         user,
         setUser,
-
         favouriteID,
         setfavouriteID,
         updateFavourite,
+        login,
+        setLogin,
+        updated,
+        setUpdated,
+        favourite,
+        setFavourite,
+        handleWishlist,
       }}
     >
       {" "}
