@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createContext, useState } from "react";
 import axios from "axios";
 
@@ -11,7 +11,6 @@ export const ItemProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [banners, setBanner] = useState([]);
   const [favourite, setFavourite] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
 
   const getItems = async () => {
     const result = await axios.post("http://localhost:3000/api/item/fulltext", {
@@ -48,8 +47,6 @@ export const ItemProvider = ({ children }) => {
         getCategory,
         banners,
         fetchBanner,
-        favourite,
-        setFavourite,
       }}
     >
       {children}
