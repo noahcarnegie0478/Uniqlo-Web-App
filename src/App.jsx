@@ -6,6 +6,8 @@ import Texting from "./Pages/Texting";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Cart from "./Pages/Cart";
+import Success from "./Pages/Success";
+import Cancle from "./Pages/Cancle";
 
 function App() {
   console.log(localStorage);
@@ -20,6 +22,8 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/success" element={<Success />}></Route>
+            <Route path="/cancle" element={<Cancle />}></Route>
           </Routes>
         </div>
       </Router>
