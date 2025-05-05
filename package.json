@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "engines": {
-    "node": ">=14.18.0",
+    "node": ">=14.20.0",
     "npm": ">=6"
   },
   "dependencies": {
