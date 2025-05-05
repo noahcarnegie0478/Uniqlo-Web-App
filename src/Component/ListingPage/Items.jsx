@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "boxicons";
-import Card from "./card";
+import Card from "./Card";
 import { itemsContext } from "../../Context/ItemProvider";
 
 function Items() {
