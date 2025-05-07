@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../Context/userProvider";
+import { Link } from "react-router-dom";
+import { itemsContext } from "../../Context/ItemProvider";
 
 function Card({ item }) {
   const { updateFavourite, updateToCart } = useContext(userContext);
+  const { setChosenItem } = useContext(itemsContext);
 
   const handleFavourite = () => {
     updateFavourite(item.item_id);
@@ -20,9 +23,11 @@ function Card({ item }) {
       key={item.item_id}
     >
       {/* image  */}
+
       <div className="image-item row-start-1 row-end-3 hover:drop-shadow-lg">
         <img src={item.image_paths[0]} alt="image-item" />
       </div>
+
       <div className="detail-item p-1">
         {/* colour */}
         <div className="first-line flex justify-between items-center">
@@ -53,6 +58,7 @@ function Card({ item }) {
           <div className="topic">
             <p className="uppercase text-xl">{item.topic}</p>
           </div>
+
           <div className="sizes">
             <p className="text-xl ">
               {" "}
@@ -60,9 +66,20 @@ function Card({ item }) {
             </p>
           </div>
         </div>
-        <div className="title">
-          <p className=" text-lg">{item.title}</p>
-        </div>
+        <Link
+          to={{
+            pathname: `/item/${item.item_id}`,
+          }}
+        >
+          <div className="title">
+            <p
+              className=" text-lg hover:font-bold active:text-red-200"
+              onClick={() => setChosenItem(item)}
+            >
+              {item.title}
+            </p>
+          </div>
+        </Link>
         <div className="price py-1">
           <p className=" uppercase text-xl">${item.price}</p>
         </div>

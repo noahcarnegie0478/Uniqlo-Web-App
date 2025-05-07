@@ -5,6 +5,7 @@ import axios from "axios";
 export const itemsContext = createContext();
 export const ItemProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  const [chosenItem, setChosenItem] = useState({});
   const [keywords, setKeyWords] = useState("Men");
   const [topic, setTopic] = useState("Men");
   const [category, setCategory] = useState(false);
@@ -13,23 +14,20 @@ export const ItemProvider = ({ children }) => {
   const [favourite, setFavourite] = useState([]);
 
   const getItems = async () => {
-    const result = await axios.post(
-      "https://3.27.236.182:4000/api/item/fulltext",
-      {
-        input: keywords,
-      }
-    );
+    const result = await axios.post("http://localhost:3000/api/item/fulltext", {
+      input: keywords,
+    });
 
     setItems(result.data);
   };
 
   const getCategory = async () => {
-    const result = await axios.get("https://3.27.236.182:4000/api/category");
+    const result = await axios.get("http://localhost:3000/api/category");
     setCategories(result.data);
   };
 
   const fetchBanner = async () => {
-    const result = await axios.get("https://3.27.236.182:4000/api/banner/");
+    const result = await axios.get("http://localhost:3000/api/banner/");
     setBanner(result.data);
   };
 
@@ -50,6 +48,8 @@ export const ItemProvider = ({ children }) => {
         getCategory,
         banners,
         fetchBanner,
+        chosenItem,
+        setChosenItem,
       }}
     >
       {children}

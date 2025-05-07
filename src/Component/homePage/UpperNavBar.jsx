@@ -18,9 +18,9 @@ function UpperNavBar() {
   };
 
   return (
-    <div className={`px-20 fixed w-full `}>
+    <div className={`px-20 sticky bg-white top-0 w-full `}>
       <div className="nav-bar-container font-md grid grid-cols-3 gap-4 h-20  ">
-        <div className="logo w-25 ">
+        <div className="logo w-25  ">
           <img src={logo} alt="" />
         </div>
         <div className="topic h-20 flex justify-between items-center text-xl ">
@@ -52,7 +52,7 @@ function UpperNavBar() {
             {" "}
             <box-icon
               name="globe"
-              color="#fff"
+              // color="#fff"
               className="hover:pb-1"
             ></box-icon>
           </div>
@@ -60,7 +60,7 @@ function UpperNavBar() {
             {" "}
             <box-icon
               name="heart"
-              color="#fff"
+              // color="#fff"
               className="hover:pb-1"
             ></box-icon>
           </div>
@@ -68,7 +68,7 @@ function UpperNavBar() {
             {" "}
             <box-icon
               name="cart"
-              color="#fff"
+              // color="#fff"
               className="hover:pb-1"
             ></box-icon>
           </div>

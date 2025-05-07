@@ -38,7 +38,7 @@ export const UserProvider = ({ children }) => {
     if (user && user.favourite?.length > 0) {
       console.log("run");
       const result = await axios.post(
-        "https://3.27.236.182:4000/api/item/fulltext",
+        "http://localhost:3000/api/item/fulltext",
         {
           input: user.favourite.join(" | "),
         }
@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
       setFavourite(result.data);
     } else {
       const result = await axios.post(
-        "https://3.27.236.182:4000/api/item/fulltext",
+        "http://localhost:3000/api/item/fulltext",
         {
           input: user.favourite.join(),
         }
@@ -61,7 +61,7 @@ export const UserProvider = ({ children }) => {
     if (user && user.cart?.length > 0) {
       console.log("run");
       const result = await axios.post(
-        "https://3.27.236.182:4000/api/item/fulltext",
+        "http://localhost:3000/api/item/fulltext",
         {
           input: user.cart.map(array => array.id).join(" | "),
         }
@@ -70,7 +70,7 @@ export const UserProvider = ({ children }) => {
       setCart(result.data);
     } else {
       const result = await axios.post(
-        "https://3.27.236.182:4000/api/item/fulltext",
+        "http://localhost:3000/api/item/fulltext",
         {
           input: user.cart.map(array => array.id).join(),
         }
@@ -90,7 +90,7 @@ export const UserProvider = ({ children }) => {
       // console.log("favouriteId: ", favouriteID);
       console.log("new Array: ", newArray);
       const response = await axios.put(
-        `https://3.27.236.182:4000/api/users/update/${officialUser.id}`,
+        `http://localhost:3000/api/users/update/${officialUser.id}`,
         { favourite: newArray },
         {
           headers: {
@@ -102,7 +102,7 @@ export const UserProvider = ({ children }) => {
         setfavouriteID(newArray);
         if (user && newArray.length > 1) {
           const result = await axios.post(
-            "https://3.27.236.182:4000/api/item/fulltext",
+            "http://localhost:3000/api/item/fulltext",
             {
               input: newArray.join(" | "),
             }
@@ -110,7 +110,7 @@ export const UserProvider = ({ children }) => {
           console.log("result of the 1st: ", result);
           setFavourite(result.data);
           const newUser = await axios.post(
-            "https://3.27.236.182:4000/api/users/getsbyid",
+            "http://localhost:3000/api/users/getsbyid",
             {
               user_id: officialUser.id,
             },
@@ -124,7 +124,7 @@ export const UserProvider = ({ children }) => {
           setUser(newUser.data);
         } else {
           const result = await axios.post(
-            "https://3.27.236.182:4000/api/item/fulltext",
+            "http://localhost:3000/api/item/fulltext",
             {
               input: newArray.join(),
             }
@@ -132,7 +132,7 @@ export const UserProvider = ({ children }) => {
           console.log("result of the 1st: ", result);
           setFavourite(result.data);
           const newUser = await axios.post(
-            "https://3.27.236.182:4000/api/users/getsbyid",
+            "http://localhost:3000/api/users/getsbyid",
             {
               user_id: officialUser.id,
             },
@@ -162,13 +162,10 @@ export const UserProvider = ({ children }) => {
   }, [user]);
   const LoginUser = async () => {
     try {
-      const response = await axios.post(
-        "https://3.27.236.182:4000/users/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/users/login", {
+        email: email,
+        password: password,
+      });
       localStorage.setItem("token", JSON.stringify(response.data.token));
       setLogin(true);
       localStorage.setItem("login", true.toString());
@@ -184,7 +181,7 @@ export const UserProvider = ({ children }) => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
-        "https://3.27.236.182:4000/",
+        "http://localhost:3000/",
 
         {
           headers: {
@@ -212,7 +209,7 @@ export const UserProvider = ({ children }) => {
       const newArray = [...cartID, item_id];
       console.log("new Cart: ", newArray);
       const response = await axios.put(
-        `https://3.27.236.182:4000/api/users/updatecart/${officialUser.id}`,
+        `http://localhost:3000/api/users/updatecart/${officialUser.id}`,
         { cart: newArray },
         {
           headers: {
@@ -224,7 +221,7 @@ export const UserProvider = ({ children }) => {
         setCartID(newArray);
         if (user && newArray.length > 1) {
           const result = await axios.post(
-            "https://3.27.236.182:4000/api/item/fulltext",
+            "http://localhost:3000/api/item/fulltext",
             {
               input: newArray.map(array => array.id).join(" | "),
             }
@@ -232,7 +229,7 @@ export const UserProvider = ({ children }) => {
           console.log("result cart ", result);
           setCart(result.data);
           const newUser = await axios.post(
-            "https://3.27.236.182:4000/api/users/getsbyid",
+            "http://localhost:3000/api/users/getsbyid",
             {
               user_id: officialUser.id,
             },
@@ -246,7 +243,7 @@ export const UserProvider = ({ children }) => {
           setUser(newUser.data);
         } else {
           const result = await axios.post(
-            "https://3.27.236.182:4000/api/item/fulltext",
+            "http://localhost:3000/api/item/fulltext",
             {
               input: newArray.map(array => array.id).join(),
             }
@@ -254,7 +251,7 @@ export const UserProvider = ({ children }) => {
           console.log("result of cart: ", result);
           setCart(result.data);
           const newUser = await axios.post(
-            "https://3.27.236.182:4000/api/users/getsbyid",
+            "http://localhost:3000/api/users/getsbyid",
             {
               user_id: officialUser.id,
             },

@@ -10,6 +10,7 @@ import Category from "../Component/Category";
 
 function ListingPage() {
   const { category } = useContext(itemsContext);
+
   return (
     <div className="relative min-h-screen ">
       <UpperNavBar />

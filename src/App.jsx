@@ -8,6 +8,7 @@ import Profile from "./Pages/Profile";
 import Cart from "./Pages/Cart";
 import Success from "./Pages/Success";
 import Cancle from "./Pages/Cancle";
+import DetailPage from "./Pages/DetailPage";
 
 function App() {
   console.log(localStorage);
@@ -24,6 +25,7 @@ function App() {
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/success" element={<Success />}></Route>
             <Route path="/cancle" element={<Cancle />}></Route>
+            <Route path="/item/:id" element={<DetailPage />}></Route>
           </Routes>
         </div>
       </Router>
