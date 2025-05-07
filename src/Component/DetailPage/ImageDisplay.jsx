@@ -8,11 +8,15 @@ function ImageDisplay({ chosenItem }) {
       )} gap-0 grid-cols-2`}
     >
       <div className="itemImage col-start-1 ">
-        <img src={chosenItem.colors[0].ItemImage} alt="image-items" />
+        <img
+          src={chosenItem.colors[0].ItemImage}
+          alt="image-items"
+          className="w-100 "
+        />
       </div>{" "}
       {chosenItem.image_paths.map(img => (
         <div className="itemImage " key={`${img}`}>
-          <img src={img} alt="image-items" />
+          <img src={img} alt="image-items" className="w-100 " />
         </div>
       ))}
     </div>

@@ -16,6 +16,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^3.6.0",
     "@stripe/stripe-js": "^7.1.0",
+    "@szhsin/react-accordion": "^1.4.1",
     "@tailwindcss/vite": "^4.0.14",
     "axios": "^1.8.4",
     "boxicons": "^2.1.4",

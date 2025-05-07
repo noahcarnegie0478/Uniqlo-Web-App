@@ -6,6 +6,8 @@ import HomePageContent from "../Component/homePage/HomePageContent";
 import Category from "../Component/Category";
 import { itemsContext } from "../Context/ItemProvider";
 import ImageDisplay from "../Component/DetailPage/ImageDisplay";
+import DescriptionDetail from "../Component/DetailPage/DescriptionDetail";
+import OptionReview from "../Component/DetailPage/OptionReview";
 
 function DetailPage() {
   const { category, chosenItem } = useContext(itemsContext);
@@ -17,11 +19,14 @@ function DetailPage() {
         <Category />
       ) : chosenItem != null ? (
         <div className="  out-container h-auto ">
-          <div className=" p-20 flex flex-wrap h-screen ">
+          <div className=" p-20 flex flex-wrap h-auto ">
             <div className="left-detail bg-red-200 flex-1">
               <ImageDisplay chosenItem={chosenItem} />
+              <DescriptionDetail chosenItem={chosenItem} />
             </div>
-            <div className="right-detail bg-green-200 flex-1"></div>
+            <div className="right-detail bg-green-200 flex-1 p-15">
+              <OptionReview chosenItem={chosenItem} />
+            </div>
           </div>
           <div className="recomendation-side h-100"></div>
         </div>

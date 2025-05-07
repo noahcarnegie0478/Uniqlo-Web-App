@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createContext, useState } from "react";
 import axios from "axios";
 
@@ -11,7 +11,6 @@ export const ItemProvider = ({ children }) => {
   const [category, setCategory] = useState(false);
   const [categories, setCategories] = useState([]);
   const [banners, setBanner] = useState([]);
-  const [favourite, setFavourite] = useState([]);
 
   const getItems = async () => {
     const result = await axios.post("http://localhost:3000/api/item/fulltext", {

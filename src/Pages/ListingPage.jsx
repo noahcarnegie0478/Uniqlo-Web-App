@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Items from "../Component/ListingPage/Items";
 import UpperNavBar from "../Component/homePage/UpperNavBar";
 import LowerNavbar from "../Component/homePage/LowerNavbar";
