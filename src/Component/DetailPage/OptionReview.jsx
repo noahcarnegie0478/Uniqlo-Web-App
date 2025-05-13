@@ -25,7 +25,14 @@ function OptionReview({ chosenItem, currentColor, setCurrentColor }) {
         <p className="font-bold text-4xl mt-2">${chosenItem.price}</p>
       </div>
 
-      <CartOption item_id={chosenItem.item_id} currentSize={currentSize} />
+      <CartOption
+        item_id={chosenItem.item_id}
+        currentSize={currentSize}
+        topic={chosenItem.topic}
+        currentColor={currentColor}
+        price={chosenItem.price}
+        title={chosenItem.title}
+      />
     </div>
   );
 }

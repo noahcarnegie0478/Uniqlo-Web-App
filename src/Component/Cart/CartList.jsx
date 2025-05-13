@@ -7,6 +7,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISH_KEY);
 function CartList() {
   const { user, cart } = useContext(userContext);
+  console.log(cart);
 
   const handleCheckout = async () => {
     console.log("clicked");

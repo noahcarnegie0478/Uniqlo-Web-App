@@ -2,12 +2,17 @@ import React, { useContext, useState } from "react";
 import { userContext } from "../../../Context/userProvider";
 import SizesDisplay from "./SizesDisplay";
 
-function CartOption({ item_id, currentSize }) {
+function CartOption({
+  item_id,
+  currentSize,
+  topic,
+  currentColor,
+  price,
+  title,
+}) {
   const [cartCount, setCartCount] = useState(0);
   const { user, updateToCart } = useContext(userContext);
   const addToCart = () => {
-    // console.log("pressed");
-
     // neu cart count = 0
     user.length == 0
       ? alert("You need to login before we can process your purchases")
@@ -15,6 +20,11 @@ function CartOption({ item_id, currentSize }) {
           id: item_id,
           quatity: cartCount == 0 ? 1 : cartCount,
           size: currentSize,
+          topic: topic,
+          color: currentColor.colorName,
+          image_path: currentColor.ItemImage,
+          price: price,
+          title: title,
         });
   };
   return (

@@ -57,27 +57,32 @@ export const UserProvider = ({ children }) => {
       console.log("favourite change after fetch: ", favourite);
     }
   };
+  // const handleCartList = async user => {
+  //   if (user && user.cart?.length > 0) {
+  //     console.log("run");
+  //     const result = await axios.post(
+  //       "http://localhost:3000/api/item/fulltext",
+  //       {
+  //         input: user.cart.map(array => array.id).join(" | "),
+  //       }
+  //     );
+  //     console.log("result of the 1st: ", result);
+  //     setCart(result.data);
+  //   } else {
+  //     const result = await axios.post(
+  //       "http://localhost:3000/api/item/fulltext",
+  //       {
+  //         input: user.cart.map(array => array.id).join(),
+  //       }
+  //     );
+  //     console.log("result: ", result);
+  //     setCart(result.data);
+  //     console.log("favourite change after fetch: ", favourite);
+  //   }
+  // };
   const handleCartList = async user => {
     if (user && user.cart?.length > 0) {
-      console.log("run");
-      const result = await axios.post(
-        "http://localhost:3000/api/item/fulltext",
-        {
-          input: user.cart.map(array => array.id).join(" | "),
-        }
-      );
-      console.log("result of the 1st: ", result);
-      setCart(result.data);
-    } else {
-      const result = await axios.post(
-        "http://localhost:3000/api/item/fulltext",
-        {
-          input: user.cart.map(array => array.id).join(),
-        }
-      );
-      console.log("result: ", result);
-      setCart(result.data);
-      console.log("favourite change after fetch: ", favourite);
+      setCart(user.cart);
     }
   };
 
@@ -225,15 +230,7 @@ export const UserProvider = ({ children }) => {
       );
       if (response) {
         setCartID(newArray);
-        if (user && newArray.length > 1) {
-          const result = await axios.post(
-            "http://localhost:3000/api/item/fulltext",
-            {
-              input: newArray.map(array => array.id).join(" | "),
-            }
-          );
-          console.log("result cart ", result);
-          setCart(result.data);
+        if (user) {
           const newUser = await axios.post(
             "http://localhost:3000/api/users/getsbyid",
             {
@@ -247,27 +244,7 @@ export const UserProvider = ({ children }) => {
           );
           console.log(newUser);
           setUser(newUser.data);
-        } else {
-          const result = await axios.post(
-            "http://localhost:3000/api/item/fulltext",
-            {
-              input: newArray.map(array => array.id).join(),
-            }
-          );
-          console.log("result of cart: ", result);
-          setCart(result.data);
-          const newUser = await axios.post(
-            "http://localhost:3000/api/users/getsbyid",
-            {
-              user_id: officialUser.id,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setUser(newUser);
+          setCart(newUser.data[0].cart);
         }
       }
     } catch (error) {
