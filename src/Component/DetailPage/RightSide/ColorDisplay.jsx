@@ -11,7 +11,7 @@ function ColorDisplay({ chosenItem, currentColor, setCurrentColor }) {
               height: "40px",
               backgroundColor: currentColor?.colorImg,
               borderRadius: "20px",
-              border: "3px solid",
+              border: " thick double #000",
             }}
             key={currentColor?.code}
           ></div>
