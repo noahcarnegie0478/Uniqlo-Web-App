@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 :root {
   font-family: "Titillium Web", sans-serif;
   line-height: 1.5;

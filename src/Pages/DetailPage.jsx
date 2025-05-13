@@ -5,9 +5,10 @@ import HomePageContent from "../Component/homePage/HomePageContent";
 
 import Category from "../Component/Category";
 import { itemsContext } from "../Context/ItemProvider";
-import ImageDisplay from "../Component/DetailPage/ImageDisplay";
-import DescriptionDetail from "../Component/DetailPage/DescriptionDetail";
+import ImageDisplay from "../Component/DetailPage/LeftSide/ImageDisplay";
+import DescriptionDetail from "../Component/DetailPage/LeftSide/DescriptionDetail";
 import OptionReview from "../Component/DetailPage/OptionReview";
+import FeedbackService from "../Component/DetailPage/LeftSide/Feedback/FeedbackService";
 
 function DetailPage() {
   const { category, chosenItem } = useContext(itemsContext);
@@ -35,6 +36,7 @@ function DetailPage() {
                 currentColor={currentColor}
               />
               <DescriptionDetail chosenItem={chosenItem} />
+              <FeedbackService item_id={chosenItem.item_id} />
             </div>
             <div className="right-detail  flex-1 p-15">
               <OptionReview
@@ -44,6 +46,7 @@ function DetailPage() {
               />
             </div>
           </div>
+
           <div className="recomendation-side h-100"></div>
         </div>
       ) : (
