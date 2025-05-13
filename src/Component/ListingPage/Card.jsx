@@ -91,14 +91,6 @@ function Card({ item }) {
           ></box-icon>
           <p className=" text-md font-bold">{item.rating}</p>
         </div>
-        <div className="add to cart py-1 flex gap-1 items-center">
-          <span
-            className=" text-md font-light text-red-300 mt-2"
-            onClick={() => addToCart()}
-          >
-            Add to cart
-          </span>
-        </div>
       </div>
     </div>
   );

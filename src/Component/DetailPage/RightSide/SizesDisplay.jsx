@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function SizesDisplay({ chosenItem }) {
-  const [currentSize, setCurrentSize] = useState("XS");
+function SizesDisplay({ chosenItem, currentSize, setCurrentSize }) {
   return (
     <div className=" relative flex gap-4 h-20 my-5 ">
       {chosenItem.sizes.map((size, index) => {

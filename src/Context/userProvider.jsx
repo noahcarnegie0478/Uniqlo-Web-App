@@ -32,6 +32,7 @@ export const UserProvider = ({ children }) => {
       SetValid(true);
     }
   };
+
   const handleWishlist = async user => {
     console.log(user.favourite.join(" | "));
     if (user && user.favourite?.length > 0) {
@@ -84,65 +85,71 @@ export const UserProvider = ({ children }) => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
       const officialUser = JSON.parse(localStorage.getItem("user"));
-      const newArray = [...favouriteID, item_id];
 
-      // console.log("favouriteId: ", favouriteID);
-      console.log("new Array: ", newArray);
-      const response = await axios.put(
-        `http://localhost:3000/api/users/update/${officialUser.id}`,
-        { favourite: newArray },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response) {
-        setfavouriteID(newArray);
-        if (user && newArray.length > 1) {
-          const result = await axios.post(
-            "http://localhost:3000/api/item/fulltext",
-            {
-              input: newArray.join(" | "),
-            }
-          );
-          console.log("result of the 1st: ", result);
-          setFavourite(result.data);
-          const newUser = await axios.post(
-            "http://localhost:3000/api/users/getsbyid",
-            {
-              user_id: officialUser.id,
+      //if includes, so no action. else ...
+      if (favouriteID.includes(item_id)) {
+        console.log("nothing changes");
+      } else {
+        const newArray = [...favouriteID, item_id];
+        console.log("new Array: ", newArray);
+        const response = await axios.put(
+          `http://localhost:3000/api/users/update/${officialUser.id}`,
+          { favourite: newArray },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
+          }
+        );
+        if (response) {
+          setfavouriteID(newArray);
+          if (user && newArray.length > 1) {
+            const result = await axios.post(
+              "http://localhost:3000/api/item/fulltext",
+              {
+                input: newArray.join(" | "),
+              }
+            );
+            console.log("result of the 1st: ", result);
+            setFavourite(result.data);
+            const newUser = await axios.post(
+              "http://localhost:3000/api/users/getsbyid",
+              {
+                user_id: officialUser.id,
               },
-            }
-          );
-          console.log(newUser);
-          setUser(newUser.data);
-        } else {
-          const result = await axios.post(
-            "http://localhost:3000/api/item/fulltext",
-            {
-              input: newArray.join(),
-            }
-          );
-          console.log("result of the 1st: ", result);
-          setFavourite(result.data);
-          const newUser = await axios.post(
-            "http://localhost:3000/api/users/getsbyid",
-            {
-              user_id: officialUser.id,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            console.log(newUser);
+            setUser(newUser.data);
+          } else {
+            const result = await axios.post(
+              "http://localhost:3000/api/item/fulltext",
+              {
+                input: newArray.join(),
+              }
+            );
+            console.log("result of the 1st: ", result);
+            setFavourite(result.data);
+            const newUser = await axios.post(
+              "http://localhost:3000/api/users/getsbyid",
+              {
+                user_id: officialUser.id,
               },
-            }
-          );
-          setUser(newUser);
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            setUser(newUser);
+          }
         }
+
+        // console.log("favouriteId: ", favouriteID);
       }
     } catch (error) {
       console.log(error);
