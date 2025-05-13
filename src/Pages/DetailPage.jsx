@@ -19,8 +19,8 @@ function DetailPage() {
         <Category />
       ) : chosenItem != null ? (
         <div className="  out-container h-auto ">
-          <div className=" p-20 flex flex-wrap h-auto ">
-            <div className="left-detail bg-red-200 flex-1">
+          <div className=" px-40 py-10 flex flex-wrap h-auto ">
+            <div className="left-detail bg-red-200 flex-2">
               <ImageDisplay chosenItem={chosenItem} />
               <DescriptionDetail chosenItem={chosenItem} />
             </div>

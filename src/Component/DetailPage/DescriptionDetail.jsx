@@ -20,14 +20,14 @@ function DescriptionDetail({ chosenItem }) {
   return (
     <div>
       DescriptionDetail
-      <div classNameNameName="acordian-choices">
+      <div classNameNameName="acordian-choices w-full">
         <Accordion>
           <AccordionItem
             header={
               // text-start
               <div
                 className="
-              bg-gray-300 h-15 p-4 w-200 text-lg flex justify-between hover:bg-gray-200"
+              bg-gray-300 h-15 p-4 w-full text-lg flex justify-between hover:bg-gray-200"
               >
                 <p> Features</p>
                 <box-icon name="chevron-down"></box-icon>

@@ -9,3 +9,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.szh-accordion__item-btn {
+  width: 100%;
+}

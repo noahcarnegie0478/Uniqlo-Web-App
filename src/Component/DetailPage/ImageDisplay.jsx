@@ -11,12 +11,12 @@ function ImageDisplay({ chosenItem }) {
         <img
           src={chosenItem.colors[0].ItemImage}
           alt="image-items"
-          className="w-100 "
+          className="w-full "
         />
       </div>{" "}
       {chosenItem.image_paths.map(img => (
         <div className="itemImage " key={`${img}`}>
-          <img src={img} alt="image-items" className="w-100 " />
+          <img src={img} alt="image-items" className="w-full " />
         </div>
       ))}
     </div>
