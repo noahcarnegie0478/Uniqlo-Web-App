@@ -1,25 +1,13 @@
 import React from "react";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 
-const items = [
-  {
-    header: "What is Lorem Ipsum?",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing...",
-  },
-  {
-    header: "Where does it come from?",
-    content: "Quisque eget luctus mi, vehicula mollis lorem...",
-  },
-  {
-    header: "Why do we use it?",
-    content: "Suspendisse massa risus, pretium id interdum in...",
-  },
-];
-
 function DescriptionDetail({ chosenItem }) {
   return (
-    <div>
-      DescriptionDetail
+    <div className="mt-10">
+      <h3 className="text-4xl mb-3">Description: </h3>
+      <p className=" ml-4 text-lg py-2 font-semibold">
+        Product ID: {chosenItem.item_id}
+      </p>
       <div classNameNameName="acordian-choices w-full">
         <Accordion>
           <AccordionItem
@@ -27,7 +15,7 @@ function DescriptionDetail({ chosenItem }) {
               // text-start
               <div
                 className="
-              bg-gray-300 h-15 p-4 w-full text-lg flex justify-between hover:bg-gray-200"
+              bg-gray-100 h-15 p-4 w-full text-lg flex justify-between hover:bg-gray-100 active:bg-gray-200"
               >
                 <p> Features</p>
                 <box-icon name="chevron-down"></box-icon>
@@ -36,7 +24,7 @@ function DescriptionDetail({ chosenItem }) {
             className="w-full "
           >
             <div
-              className={`w-full bg-gray-200 flex flex-wrap justify-between h-auto px-2 pt-3`}
+              className={`w-full bg-white flex flex-wrap justify-between h-auto px-2 pt-3`}
             >
               {chosenItem.feature_details.map((feature, index) => (
                 <div
@@ -54,15 +42,42 @@ function DescriptionDetail({ chosenItem }) {
               ))}
             </div>
           </AccordionItem>
+          <AccordionItem
+            header={
+              // text-start
+              <div
+                className="
+              bg-gray-100 h-15 p-4 w-full text-lg flex justify-between hover:bg-gray-100 active:bg-gray-200"
+              >
+                <p> Details</p>
+                <box-icon name="chevron-down"></box-icon>
+              </div>
+            }
+            className="w-full "
+          >
+            <div
+              className={`w-full bg-white justify-between h-auto px-10 py-3 `}
+            >
+              <div className="washing">
+                <h4 className="font-bold text-lg"> Washing Instruction:</h4>
+                <p className="ml-3"> - {chosenItem.washing_instruction}</p>
+              </div>
+              <div className="fabric">
+                <h4 className="font-bold text-lg"> Fabric:</h4>
+                <p className="ml-3"> - {chosenItem.fabric_detail}</p>
+              </div>
+              <div className="rating">
+                <h4 className="font-bold text-lg"> Rating:</h4>
+                <p className="ml-3"> - {chosenItem.rating}/5</p>
+              </div>
+              <div className="itm-id">
+                <span className="font-bold text-lg"> Item_ID:</span>
+                <p className="ml-3"> - {chosenItem.item_id}</p>
+              </div>
+            </div>
+          </AccordionItem>
         </Accordion>
       </div>
-      {/* <Accordion>
-        {items.map(({ header, content }, i) => (
-          <AccordionItem header={header} key={i}>
-            {content}
-          </AccordionItem>
-        ))}
-      </Accordion> */}
     </div>
   );
 }
