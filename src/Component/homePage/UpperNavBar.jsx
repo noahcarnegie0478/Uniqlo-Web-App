@@ -3,17 +3,23 @@ import logo from "../../assets/logo.png";
 import "boxicons";
 import { itemsContext } from "../../Context/ItemProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userContext } from "../../Context/userProvider";
 
 function UpperNavBar() {
   const { setTopic } = useContext(itemsContext);
+  const { user } = useContext(userContext);
   const location = useLocation();
   const ClickTopic = topic => {
     setTopic(topic);
   };
   const navigate = useNavigate();
   const navigatetoCart = () => {
-    if (location.pathname !== "/cart") {
-      navigate("/cart");
+    if (user.length == 0) {
+      alert("You need to login for further process!");
+    } else {
+      if (location.pathname !== "/cart") {
+        navigate("/cart");
+      }
     }
   };
 

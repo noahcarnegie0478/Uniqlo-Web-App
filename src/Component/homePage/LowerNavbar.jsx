@@ -2,10 +2,22 @@ import React, { useContext, useState } from "react";
 import "boxicons";
 import { itemsContext } from "../../Context/ItemProvider";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../../Context/userProvider";
 
 function LowerNavbar() {
   const { category, setCategory } = useContext(itemsContext);
+  const { user } = useContext(userContext);
   const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    if (user.length !== 0) {
+      if (location.pathname !== "/profile") {
+        navigate("/profile");
+      }
+    }
+    alert("You need to login for further process!");
+    navigate("/login");
+  };
 
   return (
     <div className="fixed bottom-5 left-0 flex justify-center w-full ">
@@ -28,7 +40,7 @@ function LowerNavbar() {
         <div
           className="profile-icon bg-white text-center py-6 px-7 drop-shadow-md rounded-full hover:drop-shadow-xl hover:bg-gray-200"
           onClick={() => {
-            navigate("/profile");
+            handleNavigate();
           }}
         >
           <box-icon name="user" type="solid"></box-icon>
