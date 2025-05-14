@@ -9,9 +9,12 @@ import Cart from "./Pages/Cart";
 import Success from "./Pages/Success";
 import Cancle from "./Pages/Cancle";
 import DetailPage from "./Pages/DetailPage";
+import { useContext } from "react";
+import { userContext } from "./Context/userProvider";
 
 function App() {
   console.log(localStorage);
+  const { user } = useContext(userContext);
   return (
     <>
       <Router>

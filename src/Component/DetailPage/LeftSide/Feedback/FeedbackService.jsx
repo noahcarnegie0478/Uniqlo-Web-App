@@ -42,6 +42,7 @@ function FeedbackService({ item_id }) {
     if (UserRating == 0 || UserComment == "") {
       alert("Please give feedback more properly!");
     } else {
+      const token = await JSON.parse(localStorage.getItem("token"));
       const result = await axios.post(
         "http://localhost:3000/api/feedback/create",
         {
@@ -50,6 +51,11 @@ function FeedbackService({ item_id }) {
           comment: UserComment,
           rating: UserRating,
           username: user.username,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       setReviewBox(!reviewBox);

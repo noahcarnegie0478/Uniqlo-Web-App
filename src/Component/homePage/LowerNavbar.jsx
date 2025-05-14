@@ -15,9 +15,10 @@ function LowerNavbar() {
       if (location.pathname !== "/profile") {
         navigate("/profile");
       }
+    } else {
+      alert("You need to login for further process!");
+      navigate("/login");
     }
-    alert("You need to login for further process!");
-    navigate("/login");
   };
 
   return (

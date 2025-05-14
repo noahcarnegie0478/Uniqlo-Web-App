@@ -213,6 +213,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const Logout = async () => {
+    const result = await axios.post("http://localhost:3000/logout");
+
+    if (result) {
+      setUser([]);
+      alert("You have loged-out!");
+    }
+  };
+
   const updateToCart = async item_id => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
@@ -285,6 +294,7 @@ export const UserProvider = ({ children }) => {
         updateToCart,
         cart,
         setCart,
+        Logout
       }}
     >
       {" "}

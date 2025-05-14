@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import UpperNavBar from "../Component/homePage/UpperNavBar";
 import LowerNavbar from "../Component/homePage/LowerNavbar";
 import HomePageContent from "../Component/homePage/HomePageContent";
-
+import { Element } from "react-scroll";
 import Category from "../Component/Category";
 import { itemsContext } from "../Context/ItemProvider";
 import ImageDisplay from "../Component/DetailPage/LeftSide/ImageDisplay";
@@ -31,12 +31,20 @@ function DetailPage() {
         <div className=" out-container h-auto ">
           <div className=" px-40 py-10 flex flex-wrap h-auto ">
             <div className="left-detail  flex-2">
-              <ImageDisplay
-                chosenItem={chosenItem}
-                currentColor={currentColor}
-              />
-              <DescriptionDetail chosenItem={chosenItem} />
-              <FeedbackService item_id={chosenItem.item_id} />
+              <Element
+                name="section1"
+                style={{
+                  height: "calc(100vh - 80px)",
+                  overflowY: "auto",
+                }}
+              >
+                <ImageDisplay
+                  chosenItem={chosenItem}
+                  currentColor={currentColor}
+                />
+                <DescriptionDetail chosenItem={chosenItem} />
+                <FeedbackService item_id={chosenItem.item_id} />
+              </Element>
             </div>
             <div className="right-detail  flex-1 p-15">
               <OptionReview
