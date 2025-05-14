@@ -5,7 +5,6 @@ import HomePageContent from "../Component/homePage/HomePageContent";
 
 import Category from "../Component/Category";
 import { itemsContext } from "../Context/ItemProvider";
-
 function Home() {
   const { banners, category, fetchBanner } = useContext(itemsContext);
 
@@ -13,7 +12,7 @@ function Home() {
     fetchBanner();
   }, []);
   return (
-    <div className="relative min-h-screen bg-gray-500">
+    <div className="min-h-screen ">
       <UpperNavBar />
       {category ? (
         <Category />

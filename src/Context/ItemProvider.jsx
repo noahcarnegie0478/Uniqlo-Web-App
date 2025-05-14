@@ -11,6 +11,7 @@ export const ItemProvider = ({ children }) => {
   const [category, setCategory] = useState(false);
   const [categories, setCategories] = useState([]);
   const [banners, setBanner] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState({});
 
   const getItems = async () => {
     const result = await axios.post("http://localhost:3000/api/item/fulltext", {
@@ -49,6 +50,8 @@ export const ItemProvider = ({ children }) => {
         fetchBanner,
         chosenItem,
         setChosenItem,
+        currentCategory,
+        setCurrentCategory,
       }}
     >
       {children}

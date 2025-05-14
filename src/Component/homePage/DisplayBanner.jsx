@@ -1,8 +1,27 @@
 import React, { useContext } from "react";
 import { itemsContext } from "../../Context/ItemProvider";
 import { Element } from "react-scroll";
+import { useNavigate } from "react-router";
 function DisplayBanner({ banner }) {
-  const { topic } = useContext(itemsContext);
+  const { topic, keywords, getItems, setKeyWords } = useContext(itemsContext);
+  const navigate = useNavigate();
+
+  const handleDirect = () => {
+    const ValueToString = banner.url.split(" ");
+    if (ValueToString.length != 1) {
+      setKeyWords(ValueToString.join(" & "));
+    } else {
+      setKeyWords(banner.url);
+    }
+    if (
+      (keywords == banner.url) |
+      (keywords == banner.url.split(" ").join(" & "))
+    ) {
+      getItems();
+      navigate("/listing");
+    }
+  };
+
   if (banner?.topic === topic) {
     if (banner?.price === 0) {
       return (
@@ -15,7 +34,7 @@ function DisplayBanner({ banner }) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="homeContent h-full grid grid-rows-5 gap-4">
+          <div className="homeContent h-full grid grid-rows-5 gap-4 ">
             <div className="row-start-3 row-end-5 p-40">
               <div className="HomeMainContent">
                 <div className="title text-3xl font-semibold py-1 drop-shadow-md ">
@@ -46,7 +65,10 @@ function DisplayBanner({ banner }) {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="homeContent h-full grid grid-rows-5 gap-4">
+        <div
+          className="homeContent h-full grid grid-rows-5 gap-4"
+          onClick={() => handleDirect()}
+        >
           <div className="row-start-3 row-end-5 p-40">
             <div className="HomeMainContent">
               <div className="title text-3xl font-semibold py-1 drop-shadow-md ">

@@ -48,7 +48,7 @@ function Category() {
   }, []);
 
   return (
-    <div className="bg-white h-screen w-screen p-60 text-black">
+    <div className="  h-screen w-screen p-60 text-black">
       {categories?.length != 0 ? (
         <div className="grid grid-cols-3 grid-rows-4 gap-4 px-20 ">
           {categories?.map(category => (

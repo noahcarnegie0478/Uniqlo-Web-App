@@ -9,7 +9,7 @@ function HomePageContent() {
 
   return (
     <div>
-      <div className="h-screen snap-y snap-mandatory text-white">
+      <div className="h-screen snap-y snap-mandatory text-white ">
         <Element
           name="section1"
           style={{

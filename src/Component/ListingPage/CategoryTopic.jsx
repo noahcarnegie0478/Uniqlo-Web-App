@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { itemsContext } from "../../Context/ItemProvider";
 
 function CategoryTopic({ category, HandleTransfer }) {
-  const { topic } = useContext(itemsContext);
+  const { topic, setCurrentCategory } = useContext(itemsContext);
   if (category?.tag === topic) {
     return (
       <div
@@ -11,6 +11,7 @@ function CategoryTopic({ category, HandleTransfer }) {
         onClick={() => {
           const value = category?.tag + " & " + category?.title;
           HandleTransfer(value);
+          setCurrentCategory(category);
         }}
       >
         <div className="image-category">

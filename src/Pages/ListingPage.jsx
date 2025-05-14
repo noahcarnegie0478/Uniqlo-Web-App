@@ -9,7 +9,7 @@ import { itemsContext } from "../Context/ItemProvider";
 import Category from "../Component/Category";
 
 function ListingPage() {
-  const { category } = useContext(itemsContext);
+  const { category, currentCategory } = useContext(itemsContext);
 
   return (
     <div className="relative min-h-screen ">
@@ -31,8 +31,21 @@ function ListingPage() {
             }}
           >
             <Element>
-              <div className="footer h-20 w-screen bg-gray-400">
-                <p> This is the spare for Image</p>
+              <div className=" h-auto w-screen  px-40 pb-10 ">
+                {currentCategory !== null ? (
+                  <div className="image-category flex flex-col items-center">
+                    <img
+                      src={currentCategory.banner_image}
+                      alt="category-image"
+                    />
+                    <h2 className=" mt-5 font-bold uppercase text-3xl">
+                      {" "}
+                      {currentCategory.tag}: {currentCategory.title}
+                    </h2>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </Element>
             <Element>
