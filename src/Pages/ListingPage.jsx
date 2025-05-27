@@ -31,7 +31,7 @@ function ListingPage() {
             }}
           >
             <Element>
-              <div className=" h-auto w-screen  px-40 pb-10 ">
+              <div className=" h-auto w-screen  px-40 pb-10 mt-20 ">
                 {currentCategory !== null ? (
                   <div className="image-category flex flex-col items-center">
                     <img

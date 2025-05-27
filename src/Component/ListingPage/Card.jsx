@@ -1,20 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { userContext } from "../../Context/userProvider";
 import { Link } from "react-router-dom";
 import { itemsContext } from "../../Context/ItemProvider";
+import Image from "./CardElement/CardImage";
+import CardColour from "./CardElement/CardColour";
 
 function Card({ item }) {
-  const { updateFavourite, updateToCart } = useContext(userContext);
+  const { updateFavourite } = useContext(userContext);
   const { setChosenItem } = useContext(itemsContext);
+  const [currentCardColor, setCurrentCardColor] = useState(item.colors[0]);
 
   const handleFavourite = () => {
     updateFavourite(item.item_id);
-  };
-  const addToCart = () => {
-    updateToCart({
-      id: item.item_id,
-      quatity: 1,
-    });
   };
 
   return (
@@ -23,28 +20,17 @@ function Card({ item }) {
       key={item.item_id}
     >
       {/* image  */}
-
-      <div className="image-item row-start-1 row-end-3 hover:drop-shadow-lg">
-        <img src={item.image_paths[0]} alt="image-item" />
-      </div>
+      <Image
+        item={item}
+        currentCardColor={currentCardColor}
+        setCurrentCardColor={setCurrentCardColor}
+      />
 
       <div className="detail-item p-1">
         {/* colour */}
         <div className="first-line flex justify-between items-center">
-          <div className="colour-item flex gap-2 ">
-            {item.colors.map(color => (
-              <div
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: color.colorImg,
-                  borderRadius: "20px",
-                  border: "1px solid",
-                }}
-                key={color.code}
-              ></div>
-            ))}
-          </div>
+          <CardColour item={item} setCurrentCardColor={setCurrentCardColor} />
+          {/* favourite */}
           <div className="favourite-icon" onClick={handleFavourite}>
             <box-icon
               name="heart"

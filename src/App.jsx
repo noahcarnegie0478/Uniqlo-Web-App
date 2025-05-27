@@ -9,12 +9,11 @@ import Cart from "./Pages/Cart";
 import Success from "./Pages/Success";
 import Cancle from "./Pages/Cancle";
 import DetailPage from "./Pages/DetailPage";
-import { useContext } from "react";
-import { userContext } from "./Context/userProvider";
+import TestPage from "./Pages/TestComponent/TestPage";
 
 function App() {
   console.log(localStorage);
-  const { user } = useContext(userContext);
+
   return (
     <>
       <Router>
@@ -29,6 +28,7 @@ function App() {
             <Route path="/success" element={<Success />}></Route>
             <Route path="/cancle" element={<Cancle />}></Route>
             <Route path="/item/:id" element={<DetailPage />}></Route>
+            <Route path="/test" element={<TestPage />}></Route>
           </Routes>
         </div>
       </Router>
