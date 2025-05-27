@@ -36,9 +36,16 @@ function Image({ currentCardColor, item, setCurrentCardColor }) {
             />
           </div>
         </div>
-        <div className="box middlebox w-full bg-red-200 ">
-          <img src={currentCardColor.ItemImage} alt="image-item" />
-        </div>
+        {currentCardColor != null ? (
+          <div className="box middlebox w-full bg-red-200 ">
+            <img src={currentCardColor.ItemImage} alt="image-item" />
+          </div>
+        ) : (
+          <div className="box middlebox w-full bg-red-200 ">
+            <img src={item.image_paths[0]} alt="image-item" />
+          </div>
+        )}
+
         <div className="box right-box w-auto h-full absolute top-0 right-0  flex flex-rows items-center hover:bg-black/20  ">
           <div className="px-2">
             <ArrowRight

@@ -8,7 +8,7 @@ import CardColour from "./CardElement/CardColour";
 function Card({ item }) {
   const { updateFavourite } = useContext(userContext);
   const { setChosenItem } = useContext(itemsContext);
-  const [currentCardColor, setCurrentCardColor] = useState(item.colors[0]);
+  const [currentCardColor, setCurrentCardColor] = useState(null);
 
   const handleFavourite = () => {
     updateFavourite(item.item_id);
