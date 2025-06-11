@@ -12,7 +12,7 @@ function CartList() {
   const handleCheckout = async () => {
     console.log("clicked");
     const { data } = await axios.post(
-      "http://localhost:3000/create-checkout-session",
+      `${import.meta.env.SERVER}create-checkout-session`,
       {
         item: cart,
       }

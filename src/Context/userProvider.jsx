@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState([]);
@@ -38,7 +37,7 @@ export const UserProvider = ({ children }) => {
     if (user && user.favourite?.length > 0) {
       console.log("run");
       const result = await axios.post(
-        "http://localhost:3000/api/item/fulltext",
+        `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
         {
           input: user.favourite.join(" | "),
         }
@@ -47,7 +46,7 @@ export const UserProvider = ({ children }) => {
       setFavourite(result.data);
     } else {
       const result = await axios.post(
-        "http://localhost:3000/api/item/fulltext",
+        `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
         {
           input: user.favourite.join(),
         }
@@ -57,29 +56,6 @@ export const UserProvider = ({ children }) => {
       console.log("favourite change after fetch: ", favourite);
     }
   };
-  // const handleCartList = async user => {
-  //   if (user && user.cart?.length > 0) {
-  //     console.log("run");
-  //     const result = await axios.post(
-  //       "http://localhost:3000/api/item/fulltext",
-  //       {
-  //         input: user.cart.map(array => array.id).join(" | "),
-  //       }
-  //     );
-  //     console.log("result of the 1st: ", result);
-  //     setCart(result.data);
-  //   } else {
-  //     const result = await axios.post(
-  //       "http://localhost:3000/api/item/fulltext",
-  //       {
-  //         input: user.cart.map(array => array.id).join(),
-  //       }
-  //     );
-  //     console.log("result: ", result);
-  //     setCart(result.data);
-  //     console.log("favourite change after fetch: ", favourite);
-  //   }
-  // };
   const handleCartList = async user => {
     if (user && user.cart?.length > 0) {
       setCart(user.cart);
@@ -98,7 +74,9 @@ export const UserProvider = ({ children }) => {
         const newArray = [...favouriteID, item_id];
         console.log("new Array: ", newArray);
         const response = await axios.put(
-          `http://localhost:3000/api/users/update/${officialUser.id}`,
+          `${import.meta.env.VITE_PUBLISH_SERVER}api/users/update/${
+            officialUser.id
+          }`,
           { favourite: newArray },
           {
             headers: {
@@ -110,7 +88,7 @@ export const UserProvider = ({ children }) => {
           setfavouriteID(newArray);
           if (user && newArray.length > 1) {
             const result = await axios.post(
-              "http://localhost:3000/api/item/fulltext",
+              `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
               {
                 input: newArray.join(" | "),
               }
@@ -118,7 +96,7 @@ export const UserProvider = ({ children }) => {
             console.log("result of the 1st: ", result);
             setFavourite(result.data);
             const newUser = await axios.post(
-              "http://localhost:3000/api/users/getsbyid",
+              `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getsbyid`,
               {
                 user_id: officialUser.id,
               },
@@ -132,7 +110,7 @@ export const UserProvider = ({ children }) => {
             setUser(newUser.data);
           } else {
             const result = await axios.post(
-              "http://localhost:3000/api/item/fulltext",
+              `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
               {
                 input: newArray.join(),
               }
@@ -140,7 +118,7 @@ export const UserProvider = ({ children }) => {
             console.log("result of the 1st: ", result);
             setFavourite(result.data);
             const newUser = await axios.post(
-              "http://localhost:3000/api/users/getsbyid",
+              `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getsbyid`,
               {
                 user_id: officialUser.id,
               },
@@ -153,16 +131,12 @@ export const UserProvider = ({ children }) => {
             setUser(newUser);
           }
         }
-
-        // console.log("favouriteId: ", favouriteID);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  //
-  //
-  //
+
   useEffect(() => {
     if (updated) {
       navigateUserToProfile();
@@ -173,10 +147,13 @@ export const UserProvider = ({ children }) => {
   }, [user]);
   const LoginUser = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/users/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_PUBLISH_SERVER}users/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
       localStorage.setItem("token", JSON.stringify(response.data.token));
       setLogin(true);
       localStorage.setItem("login", true.toString());
@@ -192,7 +169,7 @@ export const UserProvider = ({ children }) => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
-        "http://localhost:3000/",
+        `${import.meta.env.VITE_PUBLISH_SERVER}`,
 
         {
           headers: {
@@ -214,7 +191,9 @@ export const UserProvider = ({ children }) => {
   };
 
   const Logout = async () => {
-    const result = await axios.post("http://localhost:3000/logout");
+    const result = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}logout`
+    );
 
     if (result) {
       setUser([]);
@@ -229,7 +208,9 @@ export const UserProvider = ({ children }) => {
       const newArray = [...cartID, item_id];
       console.log("new Cart: ", newArray);
       const response = await axios.put(
-        `http://localhost:3000/api/users/updatecart/${officialUser.id}`,
+        `${import.meta.env.VITE_PUBLISH_SERVER}api/users/updatecart/${
+          officialUser.id
+        }`,
         { cart: newArray },
         {
           headers: {
@@ -241,7 +222,7 @@ export const UserProvider = ({ children }) => {
         setCartID(newArray);
         if (user) {
           const newUser = await axios.post(
-            "http://localhost:3000/api/users/getsbyid",
+            `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getsbyid`,
             {
               user_id: officialUser.id,
             },
@@ -294,7 +275,7 @@ export const UserProvider = ({ children }) => {
         updateToCart,
         cart,
         setCart,
-        Logout
+        Logout,
       }}
     >
       {" "}

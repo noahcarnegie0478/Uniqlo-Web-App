@@ -11,6 +11,7 @@ function Home() {
   useEffect(() => {
     fetchBanner();
   }, []);
+
   return (
     <div className="min-h-screen ">
       <UpperNavBar />

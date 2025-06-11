@@ -14,20 +14,27 @@ export const ItemProvider = ({ children }) => {
   const [currentCategory, setCurrentCategory] = useState({});
 
   const getItems = async () => {
-    const result = await axios.post("http://localhost:3000/api/item/fulltext", {
-      input: keywords,
-    });
+    const result = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+      {
+        input: keywords,
+      }
+    );
 
     setItems(result.data);
   };
 
   const getCategory = async () => {
-    const result = await axios.get("http://localhost:3000/api/category");
+    const result = await axios.get(
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/category`
+    );
     setCategories(result.data);
   };
 
   const fetchBanner = async () => {
-    const result = await axios.get("http://localhost:3000/api/banner/");
+    const result = await axios.get(
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/banner/`
+    );
     setBanner(result.data);
   };
 
