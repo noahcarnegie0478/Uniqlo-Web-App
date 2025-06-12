@@ -12,6 +12,9 @@ export const ItemProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [banners, setBanner] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
+  const [currentBreadcrumbs, setCurrentBreadcrumbs] = useState([
+    { name: "Home", path: "/" },
+  ]);
 
   const getItems = async () => {
     const result = await axios.post(
@@ -59,6 +62,8 @@ export const ItemProvider = ({ children }) => {
         setChosenItem,
         currentCategory,
         setCurrentCategory,
+        currentBreadcrumbs,
+        setCurrentBreadcrumbs,
       }}
     >
       {children}

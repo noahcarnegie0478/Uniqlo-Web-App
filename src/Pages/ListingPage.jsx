@@ -7,6 +7,8 @@ import Filter from "../Component/ListingPage/filter";
 import Sort from "../Component/ListingPage/Sort";
 import { itemsContext } from "../Context/ItemProvider";
 import Category from "../Component/Category";
+import { Link } from "react-scroll";
+import Breadcrumbs from "../Component/Breadcrumbs/Breadcrumbs";
 
 function ListingPage() {
   const { category, currentCategory } = useContext(itemsContext);
@@ -14,15 +16,18 @@ function ListingPage() {
   return (
     <div className="relative min-h-screen ">
       <UpperNavBar />
+      <div className="px-50">
+        <Breadcrumbs />
+      </div>
+      <div className="sticky top-30 flex justify-between items-center px-50 h-20  bg-white w-full z-50">
+        <Filter />
+        <Sort />
+      </div>
 
       {category ? (
         <Category />
       ) : (
-        <div className="content-listing  border-1">
-          <div className="sticky top-20 flex justify-between items-center px-50 h-20  bg-white">
-            <Filter />
-            <Sort />
-          </div>
+        <div className="content-listing  ">
           <Element
             name="section1"
             style={{

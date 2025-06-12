@@ -9,6 +9,7 @@ import ImageDisplay from "../Component/DetailPage/LeftSide/ImageDisplay";
 import DescriptionDetail from "../Component/DetailPage/LeftSide/DescriptionDetail";
 import OptionReview from "../Component/DetailPage/OptionReview";
 import FeedbackService from "../Component/DetailPage/LeftSide/Feedback/FeedbackService";
+import Breadcrumbs from "../Component/Breadcrumbs/Breadcrumbs";
 
 function DetailPage() {
   const { category, chosenItem } = useContext(itemsContext);
@@ -21,10 +22,12 @@ function DetailPage() {
       setRunForOnce(false);
     }
   }, []);
+  const accessBreadCrumbs = (name, path) => {};
 
   return (
     <div className="relative min-h-screen pt-20 ">
       <UpperNavBar />
+      <Breadcrumbs />
       {category ? (
         <Category />
       ) : chosenItem != null ? (

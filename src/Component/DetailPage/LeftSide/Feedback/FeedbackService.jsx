@@ -11,8 +11,6 @@ function FeedbackService({ item_id }) {
   const [reviewBox, setReviewBox] = useState(false);
   const [UserRating, setUserRating] = useState(0);
   const [UserComment, setUserComment] = useState("");
-
-  console.log(user);
   var count = 0;
   const getReviewForItem = async () => {
     const result = await axios.post("http://localhost:3000/api/feedback/get", {

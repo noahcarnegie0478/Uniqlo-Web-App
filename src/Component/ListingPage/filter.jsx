@@ -10,11 +10,14 @@ function Filter() {
     price: "*",
   });
   const submitFilter = async () => {
-    const result = await axios.post("http://localhost:3000/api/item/filter", {
-      colors: input.colors,
-      material: input.material,
-      price: input.price,
-    });
+    const result = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}/api/item/filter`,
+      {
+        colors: input.colors,
+        material: input.material,
+        price: input.price,
+      }
+    );
     setItems(result.data);
   };
   return (

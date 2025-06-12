@@ -7,12 +7,25 @@ import CardColour from "./CardElement/CardColour";
 
 function Card({ item }) {
   const { updateFavourite } = useContext(userContext);
-  const { setChosenItem } = useContext(itemsContext);
+  const { setChosenItem, setCurrentBreadcrumbs } = useContext(itemsContext);
   const [currentCardColor, setCurrentCardColor] = useState(null);
 
   const handleFavourite = () => {
     updateFavourite(item.item_id);
   };
+
+  const handleChosen = item => {
+    setChosenItem(item);
+    setCurrentBreadcrumbs(prev => [
+      ...prev,
+      {
+        name: item.title,
+        path: `/item/${item.item_id}`,
+      },
+    ]);
+  };
+
+  //if location.path != chosen_item.path
 
   return (
     <div
@@ -60,7 +73,7 @@ function Card({ item }) {
           <div className="title">
             <p
               className=" text-lg hover:font-bold active:text-red-200"
-              onClick={() => setChosenItem(item)}
+              onClick={() => handleChosen(item)}
             >
               {item.title}
             </p>

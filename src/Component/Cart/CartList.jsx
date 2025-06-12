@@ -10,7 +10,7 @@ function CartList() {
   console.log(cart);
 
   const handleCheckout = async () => {
-    console.log("clicked");
+    // console.log("clicked");
     const { data } = await axios.post(
       `${import.meta.env.SERVER}create-checkout-session`,
       {
