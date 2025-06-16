@@ -31,7 +31,7 @@ function ChatWindow() {
   return (
     <div className="h-120 w-100 bg-white rounded-2xl border-4 border-red-500 border-double p-3 overflow-auto  relative flex flex-col ">
       {Conversations.length != 0 ? (
-        <div className="flex-1 overflow-y-auto mb-2 ">
+        <div className="flex-1 overflow-y-auto mb-2  ">
           {Conversations.map((conversation, index) => (
             <div className="chat-coversation" key={index + "converse"}>
               <div className="client text-end text-white bg-red-500 font-semibold mb-1 p-2 rounded-xl shadow-lg text-white ">
