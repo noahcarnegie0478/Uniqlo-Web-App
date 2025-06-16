@@ -10,12 +10,13 @@ import Success from "./Pages/Success";
 import Cancle from "./Pages/Cancle";
 import DetailPage from "./Pages/DetailPage";
 import TestPage from "./Pages/TestComponent/TestPage";
+import Chatbot from "./Component/Chatbot/Chatbot";
 
 function App() {
   console.log(localStorage);
 
   return (
-    <>
+    <div className="relative">
       <Router>
         <div className=" min-h-screen">
           <Routes>
@@ -32,7 +33,8 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </>
+      <Chatbot />
+    </div>
   );
 }
 

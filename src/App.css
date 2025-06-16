@@ -1,3 +1,37 @@
 .favouritecard {
   border-bottom: 1px solid;
 }
+
+.chat-bot {
+  overflow: hidden;
+  white-space: normal;
+  margin: 0 auto;
+  animation: typing 2.5s steps(200, end), blink-caret 0.75s;
+}
+.generated {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: typing 3.5s steps(50, end), blink-caret 0.75s;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgb(255, 46, 46);
+  }
+}
