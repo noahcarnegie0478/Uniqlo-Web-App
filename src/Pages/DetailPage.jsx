@@ -27,7 +27,9 @@ function DetailPage() {
   return (
     <div className="relative min-h-screen pt-20 ">
       <UpperNavBar />
-      <Breadcrumbs />
+      <div className="px-40">
+        <Breadcrumbs />
+      </div>
       {category ? (
         <Category />
       ) : chosenItem != null ? (

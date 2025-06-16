@@ -38,7 +38,6 @@ function Breadcrumbs() {
   };
   useEffect(() => {
     checkIncludes();
-    console.log(currentBreadcrumbs);
     if (
       location.pathname !==
         currentBreadcrumbs[currentBreadcrumbs.length - 1]?.path &&
