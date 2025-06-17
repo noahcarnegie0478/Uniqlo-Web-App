@@ -22,8 +22,6 @@ function Home() {
           {banners?.length != 0 ? <HomePageContent /> : <div>Loading ...</div>}
         </div>
       )}
-
-      {/* <LowerNavbar /> */}
     </div>
   );
 }
