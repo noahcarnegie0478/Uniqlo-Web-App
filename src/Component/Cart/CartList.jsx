@@ -31,24 +31,33 @@ function CartList() {
   };
 
   return (
-    <div className="mt-50 bg-green mx-60 border-1 p-10">
+    <div className="mt-30 mx-60 border-1 p-10">
       <div className="title-wishlist">
         <p className="text-4xl font-bold"> {user?.username} Cart list</p>
-        <p className="text-gray-800 p-2">({user?.cart?.length} items)</p>
+        <p className="text-gray-800 p-2">({cart.length} items)</p>
       </div>
       <div className="cartcontainer ">
         {cart.length > 0 ? (
           cart.map(cart => <CartCard cart={cart} />)
         ) : (
-          <div className="Loading">Loading ...</div>
+          <div className="Empty w-full text-center font-bold text-2xl">
+            <p>
+              Your cart list is empty — start browsing now and add items you’ll
+              love!
+            </p>
+          </div>
         )}
         <div className="checkout-button text-center mt-5 ">
-          <button
-            className="bg-red-600 py-2 px-4 font-semibold text-white hover:bg-red-500 active:bg-red-300"
-            onClick={() => handleCheckout()}
-          >
-            Checkout{" "}
-          </button>
+          {cart.length > 0 ? (
+            <button
+              className="bg-red-600 py-2 px-4 font-semibold text-white hover:bg-red-500 active:bg-red-300"
+              onClick={() => handleCheckout()}
+            >
+              Checkout{" "}
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

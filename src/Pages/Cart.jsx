@@ -9,14 +9,14 @@ import Category from "../Component/Category";
 import { useNavigate } from "react-router";
 
 function Cart() {
-  const { cart, user } = useContext(userContext);
+  const { user } = useContext(userContext);
   const { category } = useContext(itemsContext);
   const navigate = useNavigate();
   if (user.length === 0) {
     navigate("/login");
   }
   return (
-    <div className="relative min-h-screen bg-yellow-200">
+    <div className="relative min-h-screen ">
       <UpperNavBar />
       {category ? (
         <Category />
@@ -27,7 +27,6 @@ function Cart() {
             style={{
               height: "100vh",
               overflowY: "auto",
-              backgroundColor: "green",
             }}
           >
             <Element>
