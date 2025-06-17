@@ -18,16 +18,29 @@ function UpperNavBar() {
   const navigatetoCart = () => {
     if (user.length == 0) {
       alert("You need to login for further process!");
+      navigate("/login");
     } else {
       if (location.pathname !== "/cart") {
         navigate("/cart");
       }
     }
   };
+  const navigatetoFavourite = () => {
+    if (user.length == 0) {
+      alert("You need to login for further process!");
+      navigate("/login");
+    } else {
+      if (location.pathname !== "/profile") {
+        navigate("/profile");
+      }
+    }
+  };
 
   return (
     <div
-      className={`px-20 absolute top-0 w-full ${category ? "" : "text-white"}`}
+      className={`px-20 z-40 absolute top-0 w-full ${
+        category ? "" : "text-white"
+      } ${location.pathname !== "/" ? " bg-white" : ""}`}
     >
       <div className="nav-bar-container font-md grid grid-cols-3 gap-4 h-20  ">
         <div className="logo w-25  ">
@@ -78,7 +91,8 @@ function UpperNavBar() {
               ></box-icon>
             )}
           </div>
-          <div className="favourite">
+
+          <div className="favourite" onClick={() => navigatetoFavourite()}>
             {category | (location.pathname !== "/") ? (
               <box-icon name="heart" className="hover:pb-1"></box-icon>
             ) : (
@@ -89,6 +103,7 @@ function UpperNavBar() {
               ></box-icon>
             )}
           </div>
+
           <div className="cart" onClick={() => navigatetoCart()}>
             {category | (location.pathname !== "/") ? (
               <box-icon name="cart" className="hover:pb-1"></box-icon>

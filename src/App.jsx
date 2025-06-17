@@ -13,6 +13,7 @@ import TestPage from "./Pages/TestComponent/TestPage";
 import Chatbot from "./Component/Chatbot/Chatbot";
 import UpperNavBar from "./Component/homePage/UpperNavBar";
 import LowerNavbar from "./Component/homePage/LowerNavbar";
+import Breadcrumbs from "./Component/Breadcrumbs/Breadcrumbs";
 
 function App() {
   console.log(localStorage);
@@ -20,7 +21,8 @@ function App() {
   return (
     <div className="relative">
       <Router>
-        <UpperNavBar />
+        {/* <UpperNavBar />
+        <Breadcrumbs /> */}
         <div className=" min-h-screen">
           <Routes>
             <Route path="/" element={<Home />}></Route>

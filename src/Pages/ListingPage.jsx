@@ -15,19 +15,18 @@ function ListingPage() {
 
   return (
     <div className="relative min-h-screen ">
-      {/* <UpperNavBar /> */}
-      <div className="px-50">
-        <Breadcrumbs />
-      </div>
-      <div className="sticky top-30 flex justify-between items-center px-50 h-20  bg-white w-full z-50">
-        <Filter />
-        <Sort />
-      </div>
-
+      <UpperNavBar />
+      {/* <Breadcrumbs /> */}
       {category ? (
         <Category />
       ) : (
         <div className="content-listing  ">
+          <Breadcrumbs />
+          <div className="sticky top-30 flex justify-between items-center px-50 h-20  bg-white w-full z-50">
+            <Filter />
+            <Sort />
+          </div>
+
           <Element
             name="section1"
             style={{

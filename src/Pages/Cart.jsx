@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { userContext } from "../Context/userProvider";
 import { itemsContext } from "../Context/ItemProvider";
 import CartList from "../Component/Cart/CartList";
@@ -6,11 +6,15 @@ import UpperNavBar from "../Component/homePage/UpperNavBar";
 import LowerNavbar from "../Component/homePage/LowerNavbar";
 import { Element } from "react-scroll";
 import Category from "../Component/Category";
+import { useNavigate } from "react-router";
 
 function Cart() {
-  const { cart } = useContext(userContext);
+  const { cart, user } = useContext(userContext);
   const { category } = useContext(itemsContext);
-  console.log(cart);
+  const navigate = useNavigate();
+  if (user.length === 0) {
+    navigate("/login");
+  }
   return (
     <div className="relative min-h-screen bg-yellow-200">
       <UpperNavBar />

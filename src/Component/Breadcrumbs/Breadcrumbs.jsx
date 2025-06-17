@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router";
 import { itemsContext } from "../../Context/ItemProvider";
 function Breadcrumbs() {
   const location = useLocation();
-  const { currentBreadcrumbs, setCurrentBreadcrumbs } =
+  const { currentBreadcrumbs, setCurrentBreadcrumbs, category } =
     useContext(itemsContext);
   const Address = [
     { name: "Cart", path: "/cart" },
@@ -47,7 +47,7 @@ function Breadcrumbs() {
     }
   }, [location.pathname]);
   return (
-    <div className="h-10 w-full relative top-20   bg-white flex items-center gap-2 ">
+    <div className="h-10 w-full relative top-20  bg-white flex items-center gap-2 px-40 ">
       {currentBreadcrumbs.length != 0 ? (
         currentBreadcrumbs.map((breadcrumbs, index) => (
           <div className=" flex items-center gap-2" key={"breadcrumb" + index}>

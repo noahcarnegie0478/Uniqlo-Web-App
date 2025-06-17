@@ -25,14 +25,13 @@ function DetailPage() {
 
   return (
     <div className="relative min-h-screen pt-20 ">
-      {/* <UpperNavBar /> */}
-      <div className="px-40">
-        <Breadcrumbs />
-      </div>
+      <UpperNavBar />
+
       {category ? (
         <Category />
       ) : chosenItem != null ? (
         <div className=" out-container h-auto ">
+          <Breadcrumbs />
           <div className=" px-40 py-10 flex flex-wrap h-auto ">
             <div className="left-detail  flex-2">
               <Element
