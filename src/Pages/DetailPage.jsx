@@ -22,11 +22,10 @@ function DetailPage() {
       setRunForOnce(false);
     }
   }, []);
-  const accessBreadCrumbs = (name, path) => {};
 
   return (
     <div className="relative min-h-screen pt-20 ">
-      <UpperNavBar />
+      {/* <UpperNavBar /> */}
       <div className="px-40">
         <Breadcrumbs />
       </div>
@@ -51,7 +50,7 @@ function DetailPage() {
                 <FeedbackService item_id={chosenItem.item_id} />
               </Element>
             </div>
-            <div className="right-detail  flex-1 p-15">
+            <div className="right-detail flex-1 py-15 px-10">
               <OptionReview
                 chosenItem={chosenItem}
                 currentColor={currentColor}
@@ -66,7 +65,7 @@ function DetailPage() {
         <p>Loading</p>
       )}
 
-      <LowerNavbar />
+      {/* <LowerNavbar /> */}
     </div>
   );
 }

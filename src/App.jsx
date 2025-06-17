@@ -11,6 +11,8 @@ import Cancle from "./Pages/Cancle";
 import DetailPage from "./Pages/DetailPage";
 import TestPage from "./Pages/TestComponent/TestPage";
 import Chatbot from "./Component/Chatbot/Chatbot";
+import UpperNavBar from "./Component/homePage/UpperNavBar";
+import LowerNavbar from "./Component/homePage/LowerNavbar";
 
 function App() {
   console.log(localStorage);
@@ -18,6 +20,7 @@ function App() {
   return (
     <div className="relative">
       <Router>
+        <UpperNavBar />
         <div className=" min-h-screen">
           <Routes>
             <Route path="/" element={<Home />}></Route>
@@ -32,6 +35,7 @@ function App() {
             <Route path="/test" element={<TestPage />}></Route>
           </Routes>
         </div>
+        <LowerNavbar />
       </Router>
       <Chatbot />
     </div>

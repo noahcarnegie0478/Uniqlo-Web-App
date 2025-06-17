@@ -6,15 +6,16 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISH_KEY);
 function CartList() {
-  const { user, cart } = useContext(userContext);
+  const { cart } = useContext(userContext);
+  const user = JSON.parse(localStorage.getItem("user"));
   console.log(cart);
 
   const handleCheckout = async () => {
-    // console.log("clicked");
     const { data } = await axios.post(
-      `${import.meta.env.SERVER}create-checkout-session`,
+      `${import.meta.env.VITE_PUBLISH_SERVER}create-checkout-session`,
       {
         item: cart,
+        user: user.id,
       }
     );
     const stripe = await stripePromise;

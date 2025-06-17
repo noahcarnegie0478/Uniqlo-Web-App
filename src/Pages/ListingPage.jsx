@@ -15,7 +15,7 @@ function ListingPage() {
 
   return (
     <div className="relative min-h-screen ">
-      <UpperNavBar />
+      {/* <UpperNavBar /> */}
       <div className="px-50">
         <Breadcrumbs />
       </div>
@@ -66,7 +66,7 @@ function ListingPage() {
         </div>
       )}
 
-      <LowerNavbar />
+      {/* <LowerNavbar /> */}
     </div>
   );
 }
