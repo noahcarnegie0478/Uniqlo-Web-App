@@ -7,6 +7,7 @@ import LowerNavbar from "../Component/homePage/LowerNavbar";
 import { Element } from "react-scroll";
 import Category from "../Component/Category";
 import { useNavigate } from "react-router";
+import Footer from "./Footer";
 
 function Cart() {
   const { user } = useContext(userContext);
@@ -36,7 +37,7 @@ function Cart() {
             </Element>
             <Element>
               <div className="footer h-20 w-screen bg-gray-400 ">
-                <p> This is the spare for Footer</p>
+                <Footer />
               </div>
             </Element>
           </Element>

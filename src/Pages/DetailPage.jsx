@@ -10,6 +10,7 @@ import DescriptionDetail from "../Component/DetailPage/LeftSide/DescriptionDetai
 import OptionReview from "../Component/DetailPage/OptionReview";
 import FeedbackService from "../Component/DetailPage/LeftSide/Feedback/FeedbackService";
 import Breadcrumbs from "../Component/Breadcrumbs/Breadcrumbs";
+import Footer from "./Footer";
 
 function DetailPage() {
   const { category, chosenItem } = useContext(itemsContext);
@@ -63,8 +64,7 @@ function DetailPage() {
       ) : (
         <p>Loading</p>
       )}
-
-      {/* <LowerNavbar /> */}
+      <Footer />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { itemsContext } from "../Context/ItemProvider";
 import Category from "../Component/Category";
 import { Link } from "react-scroll";
 import Breadcrumbs from "../Component/Breadcrumbs/Breadcrumbs";
+import Footer from "./Footer";
 
 function ListingPage() {
   const { category, currentCategory } = useContext(itemsContext);
@@ -58,7 +59,7 @@ function ListingPage() {
 
             <Element>
               <div className="footer h-20 w-screen bg-gray-400">
-                <p> This is the spare for Footer</p>
+                <Footer />
               </div>
             </Element>
           </Element>

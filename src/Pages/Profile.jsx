@@ -8,6 +8,7 @@ import WishList from "../Component/wishlist/WishList";
 import { userContext } from "../Context/userProvider";
 import { useNavigate } from "react-router";
 import { format, parseISO } from "date-fns";
+import Footer from "./Footer";
 
 function Profile() {
   const { category } = useContext(itemsContext);
@@ -85,7 +86,6 @@ function Profile() {
           </div>
         </div>
       )}
-      <div className="footer h-20 w-screen bg-gray-400 px-60 mt-10"></div>
 
       <LowerNavbar />
     </div>
