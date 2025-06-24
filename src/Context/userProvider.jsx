@@ -12,7 +12,6 @@ export const UserProvider = ({ children }) => {
   const [updated, setUpdated] = useState(false);
   const [login, setLogin] = useState(false);
   const [favourite, setFavourite] = useState([]);
-  const [cartID, setCartID] = useState([]);
   const [cart, setCart] = useState([]);
 
   // account Valid cheking
@@ -43,30 +42,39 @@ export const UserProvider = ({ children }) => {
         },
       }
     );
-
-    if (newFavoutite.data.favourite.length > 1) {
-      const result = await axios.post(
-        `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-        {
-          input: newFavoutite.data.favourite.join(" | "),
-        }
-      );
-      setfavouriteID(newFavoutite.data.favourite);
-      setFavourite(result.data);
-    } else {
-      const result = await axios.post(
-        `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-        {
-          input: newFavoutite.data.favourite.join(),
-        }
-      );
-      setfavouriteID(newFavoutite.data.favourite);
-      setFavourite(result.data);
-    }
+    const result =
+      newFavoutite.data.favourite.length > 1
+        ? await axios.post(
+            `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+            {
+              input: newFavoutite.data.favourite.join(" | "),
+            }
+          )
+        : await axios.post(
+            `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+            {
+              input: newFavoutite.data.favourite.join(),
+            }
+          );
+    setfavouriteID(newFavoutite.data.favourite);
+    setFavourite(result.data);
   };
-  const handleCartList = async user => {
-    if (user && user.cart?.length > 0) {
-      setCart(user.cart);
+  const handleCartList = async (user_id, token) => {
+    try {
+      const newCart = await axios.post(
+        `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getcartbyid`,
+        {
+          user_id: user_id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (newCart) setCart(newCart.data.cart);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -135,12 +143,10 @@ export const UserProvider = ({ children }) => {
         }
       );
       if (response) {
-        // console.log(response.data.id);
         handleWishlist(response.data.id, token);
-        handleCartList(response.data.id);
+        handleCartList(response.data.id, token);
         localStorage.setItem("user", JSON.stringify(response.data));
         setfavouriteID(response.data.favourite);
-        setCartID(response.data.cart);
         setUser(await JSON.parse(localStorage.getItem("user")));
       }
     } catch (error) {
@@ -159,12 +165,27 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const updateToCart = async item_id => {
+  const cartFilter = cart_item => {
+    for (const itm of cart) {
+      if (itm.id == cart_item.id) {
+        if (cart_item.color != itm.color || cart_item.size != itm.size) {
+          return [...cart, cart_item];
+        }
+        itm.quatity = itm.quatity + cart_item.quatity;
+        console.log("combine them");
+        return cart;
+      }
+    }
+    console.log("add new Item");
+    return [...cart, cart_item];
+  };
+
+  const updateToCart = async cart_item => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
-      const officialUser = JSON.parse(localStorage.getItem("user"));
-      const newArray = [...cartID, item_id];
-      console.log("new Cart: ", newArray);
+      const officialUser = user;
+      const newArray = await cartFilter(cart_item);
+      // console.log(newArray);
       const response = await axios.put(
         `${import.meta.env.VITE_PUBLISH_SERVER}api/users/updatecart/${
           officialUser.id
@@ -177,23 +198,7 @@ export const UserProvider = ({ children }) => {
         }
       );
       if (response) {
-        setCartID(newArray);
-        if (user) {
-          const newUser = await axios.post(
-            `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getsbyid`,
-            {
-              user_id: officialUser.id,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(newUser);
-          setUser(newUser.data);
-          setCart(newUser.data[0].cart);
-        }
+        handleCartList(user.id, token);
       }
     } catch (error) {
       console.log(error);
