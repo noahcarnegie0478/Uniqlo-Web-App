@@ -24,9 +24,6 @@ function Card({ item }) {
       },
     ]);
   };
-
-  //if location.path != chosen_item.path
-
   return (
     <div
       className={`card-item ${item.item_id}  bg-white grid grid-rows-3 w-80 grid-flow-row hover:drop-shadow-xl  `}

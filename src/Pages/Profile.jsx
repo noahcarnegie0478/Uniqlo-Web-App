@@ -8,13 +8,11 @@ import WishList from "../Component/wishlist/WishList";
 import { userContext } from "../Context/userProvider";
 import { useNavigate } from "react-router";
 import { format, parseISO } from "date-fns";
-import Footer from "./Footer";
 
 function Profile() {
   const { category } = useContext(itemsContext);
-  const { Logout } = useContext(userContext);
-  const officialUser = JSON.parse(localStorage.getItem("user"));
-  const formatted = format(parseISO(officialUser.date_of_birth), "dd/MM/yyyy");
+  const { Logout, user } = useContext(userContext);
+  const formatted = format(parseISO(user.date_of_birth), "dd/MM/yyyy");
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -33,14 +31,12 @@ function Profile() {
               <div className="name my-2">
                 <p className="font-bold uppercase text-3xl"> User Name</p>
                 <p className="font-semibold uppercase text-xl">
-                  {officialUser.username}
+                  {user.username}
                 </p>
               </div>
               <div className="email my-2">
                 <p className="font-bold uppercase text-3xl"> User Email</p>
-                <p className="font-semibold uppercase text-xl">
-                  {officialUser.email}
-                </p>
+                <p className="font-semibold uppercase text-xl">{user.email}</p>
               </div>
               <div className="dob my-2">
                 <p className="font-bold uppercase text-3xl">
@@ -51,9 +47,7 @@ function Profile() {
               </div>
               <div className="coupon my-2">
                 <p className="font-bold uppercase text-3xl">User Coupon</p>
-                <p className="font-semibold uppercase text-xl">
-                  {officialUser.coupon}
-                </p>
+                <p className="font-semibold uppercase text-xl">{user.coupon}</p>
               </div>
             </div>
 

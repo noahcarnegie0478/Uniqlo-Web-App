@@ -31,29 +31,37 @@ export const UserProvider = ({ children }) => {
       SetValid(true);
     }
   };
+  const handleWishlist = async (user_id, token) => {
+    const newFavoutite = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getfavouritebyid`,
+      {
+        user_id: user_id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  const handleWishlist = async user => {
-    console.log(user.favourite.join(" | "));
-    if (user && user.favourite?.length > 0) {
-      console.log("run");
+    if (newFavoutite.data.favourite.length > 1) {
       const result = await axios.post(
         `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
         {
-          input: user.favourite.join(" | "),
+          input: newFavoutite.data.favourite.join(" | "),
         }
       );
-      console.log("result of the 1st: ", result);
+      setfavouriteID(newFavoutite.data.favourite);
       setFavourite(result.data);
     } else {
       const result = await axios.post(
         `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
         {
-          input: user.favourite.join(),
+          input: newFavoutite.data.favourite.join(),
         }
       );
-      console.log("result: ", result);
+      setfavouriteID(newFavoutite.data.favourite);
       setFavourite(result.data);
-      console.log("favourite change after fetch: ", favourite);
     }
   };
   const handleCartList = async user => {
@@ -65,14 +73,10 @@ export const UserProvider = ({ children }) => {
   const updateFavourite = async item_id => {
     try {
       const token = await JSON.parse(localStorage.getItem("token"));
-      const officialUser = JSON.parse(localStorage.getItem("user"));
-
-      //if includes, so no action. else ...
-      if (favouriteID.includes(item_id)) {
-        console.log("nothing changes");
-      } else {
+      const officialUser = user;
+      if (favouriteID.includes(item_id)) console.log("nothing changes");
+      else {
         const newArray = [...favouriteID, item_id];
-        console.log("new Array: ", newArray);
         const response = await axios.put(
           `${import.meta.env.VITE_PUBLISH_SERVER}api/users/update/${
             officialUser.id
@@ -85,51 +89,7 @@ export const UserProvider = ({ children }) => {
           }
         );
         if (response) {
-          setfavouriteID(newArray);
-          if (user && newArray.length > 1) {
-            const result = await axios.post(
-              `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-              {
-                input: newArray.join(" | "),
-              }
-            );
-            console.log("result of the 1st: ", result);
-            setFavourite(result.data);
-            const newUser = await axios.post(
-              `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getsbyid`,
-              {
-                user_id: officialUser.id,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            console.log(newUser);
-            setUser(newUser.data);
-          } else {
-            const result = await axios.post(
-              `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-              {
-                input: newArray.join(),
-              }
-            );
-            console.log("result of the 1st: ", result);
-            setFavourite(result.data);
-            const newUser = await axios.post(
-              `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getsbyid`,
-              {
-                user_id: officialUser.id,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            setUser(newUser);
-          }
+          handleWishlist(user.id, token);
         }
       }
     } catch (error) {
@@ -142,9 +102,6 @@ export const UserProvider = ({ children }) => {
       navigateUserToProfile();
     }
   }, [updated]);
-  useEffect(() => {
-    console.log("user after changed:", user);
-  }, [user]);
   const LoginUser = async () => {
     try {
       const response = await axios.post(
@@ -178,8 +135,9 @@ export const UserProvider = ({ children }) => {
         }
       );
       if (response) {
-        handleWishlist(response.data);
-        handleCartList(response.data);
+        // console.log(response.data.id);
+        handleWishlist(response.data.id, token);
+        handleCartList(response.data.id);
         localStorage.setItem("user", JSON.stringify(response.data));
         setfavouriteID(response.data.favourite);
         setCartID(response.data.cart);
