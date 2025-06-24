@@ -18,7 +18,6 @@ function Profile() {
 
   const navigate = useNavigate();
   const handleLogout = () => {
-    console.log("logout");
     Logout();
     navigate("/");
   };

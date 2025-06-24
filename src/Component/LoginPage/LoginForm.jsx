@@ -3,12 +3,11 @@ import { userContext } from "../../Context/userProvider";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const { setEmail, setPassword, checkAccount, error, user, favourite } =
+  const { setEmail, setPassword, checkAccount, error, user } =
     useContext(userContext);
   const naviagte = useNavigate();
 
   useEffect(() => {
-    console.log(user);
     if (user?.length != 0) {
       naviagte("/profile");
     }
@@ -76,7 +75,6 @@ function LoginForm() {
         </div>
         <p className="text-red-600">{error}</p>
         <button
-          type="submit"
           className="text-white  focus:ring-4 focus:outline-none  font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center "
           style={{ backgroundColor: "#ff0000" }}
           onClick={() => checkAccount()}
