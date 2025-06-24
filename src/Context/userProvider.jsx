@@ -1,11 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Login, LogoutUser } from "./Services/login.service";
-import axios from "axios";
 import { CartHandle, cartUpdate } from "./Services/cart.service";
 import { favouriteUpdate, wishListHandler } from "./Services/favourite.service";
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [favouriteID, setfavouriteID] = useState([]);
@@ -14,8 +13,25 @@ export const UserProvider = ({ children }) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [updated, setUpdated] = useState(false);
   const [login, setLogin] = useState(false);
-  const [favourite, setFavourite] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem("user");
+    return saved ? JSON.parse(saved) : null;
+  });
+  console.log(localStorage.getItem("favourite"));
+  console.log(localStorage.getItem("cart"));
+  const [favourite, setFavourite] = useState(() => {
+    const saved = localStorage.getItem("favourite");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    if (user) localStorage.setItem("user", JSON.stringify(user));
+    else localStorage.removeItem("user");
+  }, [user]);
 
   // account Valid cheking
   const checkAccount = () => {

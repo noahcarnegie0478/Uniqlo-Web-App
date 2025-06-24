@@ -33,6 +33,7 @@ export const wishListHandler = async (
         );
   setfavouriteID(newFavoutite.data.favourite);
   setFavourite(result.data);
+  localStorage.setItem("favourite", JSON.stringify(result.data));
 };
 
 export const favouriteUpdate = async (

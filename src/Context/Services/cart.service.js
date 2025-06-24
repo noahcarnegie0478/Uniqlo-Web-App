@@ -12,7 +12,10 @@ export const CartHandle = async (user_id, token, setCart) => {
         },
       }
     );
-    if (newCart) setCart(newCart.data.cart);
+    if (newCart) {
+      setCart(newCart.data.cart);
+      localStorage.setItem("cart", JSON.stringify(newCart.data.cart));
+    }
   } catch (error) {
     console.log(error);
   }
