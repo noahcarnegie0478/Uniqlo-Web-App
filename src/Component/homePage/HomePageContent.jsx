@@ -5,7 +5,6 @@ import DisplayBanner from "./DisplayBanner";
 
 function HomePageContent() {
   const { banners } = useContext(itemsContext);
-  console.log(banners);
 
   return (
     <div>

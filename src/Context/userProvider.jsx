@@ -1,5 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
+import { Login, LogoutUser } from "./Services/login.service";
 import axios from "axios";
+import { CartHandle, cartUpdate } from "./Services/cart.service";
+import { favouriteUpdate, wishListHandler } from "./Services/favourite.service";
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState([]);
@@ -31,178 +34,37 @@ export const UserProvider = ({ children }) => {
     }
   };
   const handleWishlist = async (user_id, token) => {
-    const newFavoutite = await axios.post(
-      `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getfavouritebyid`,
-      {
-        user_id: user_id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const result =
-      newFavoutite.data.favourite.length > 1
-        ? await axios.post(
-            `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-            {
-              input: newFavoutite.data.favourite.join(" | "),
-            }
-          )
-        : await axios.post(
-            `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-            {
-              input: newFavoutite.data.favourite.join(),
-            }
-          );
-    setfavouriteID(newFavoutite.data.favourite);
-    setFavourite(result.data);
+    await wishListHandler(user_id, token, setfavouriteID, setFavourite);
   };
   const handleCartList = async (user_id, token) => {
-    try {
-      const newCart = await axios.post(
-        `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getcartbyid`,
-        {
-          user_id: user_id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (newCart) setCart(newCart.data.cart);
-    } catch (error) {
-      console.log(error);
-    }
+    await CartHandle(user_id, token, setCart);
   };
 
   const updateFavourite = async item_id => {
-    try {
-      const token = await JSON.parse(localStorage.getItem("token"));
-      const officialUser = user;
-      if (favouriteID.includes(item_id)) console.log("nothing changes");
-      else {
-        const newArray = [...favouriteID, item_id];
-        const response = await axios.put(
-          `${import.meta.env.VITE_PUBLISH_SERVER}api/users/update/${
-            officialUser.id
-          }`,
-          { favourite: newArray },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response) {
-          handleWishlist(user.id, token);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (updated) {
-      navigateUserToProfile();
-    }
-  }, [updated]);
-  const LoginUser = async () => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_PUBLISH_SERVER}users/login`,
-        {
-          email: email,
-          password: password,
-        }
-      );
-      localStorage.setItem("token", JSON.stringify(response.data.token));
-      setLogin(true);
-      localStorage.setItem("login", true.toString());
-      await navigateUserToProfile();
-      SetValid(false);
-    } catch (error) {
-      console.log(error);
-      SetValid(false);
-    }
-  };
-
-  const navigateUserToProfile = async () => {
-    try {
-      const token = await JSON.parse(localStorage.getItem("token"));
-      const response = await axios.get(
-        `${import.meta.env.VITE_PUBLISH_SERVER}`,
-
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response) {
-        handleWishlist(response.data.id, token);
-        handleCartList(response.data.id, token);
-        localStorage.setItem("user", JSON.stringify(response.data));
-        setfavouriteID(response.data.favourite);
-        setUser(await JSON.parse(localStorage.getItem("user")));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Logout = async () => {
-    const result = await axios.post(
-      `${import.meta.env.VITE_PUBLISH_SERVER}logout`
+    await favouriteUpdate(
+      item_id,
+      user,
+      favouriteID,
+      setfavouriteID,
+      setFavourite
     );
-
-    if (result) {
-      setUser([]);
-      alert("You have loged-out!");
-    }
   };
-
-  const cartFilter = cart_item => {
-    for (const itm of cart) {
-      if (itm.id == cart_item.id) {
-        if (cart_item.color != itm.color || cart_item.size != itm.size) {
-          return [...cart, cart_item];
-        }
-        itm.quatity = itm.quatity + cart_item.quatity;
-        console.log("combine them");
-        return cart;
-      }
-    }
-    console.log("add new Item");
-    return [...cart, cart_item];
+  const LoginUser = async () => {
+    await Login(
+      email,
+      password,
+      setLogin,
+      SetValid,
+      handleWishlist,
+      handleCartList,
+      setUser
+    );
   };
-
+  const Logout = async () => {
+    await LogoutUser(setUser);
+  };
   const updateToCart = async cart_item => {
-    try {
-      const token = await JSON.parse(localStorage.getItem("token"));
-      const officialUser = user;
-      const newArray = await cartFilter(cart_item);
-      // console.log(newArray);
-      const response = await axios.put(
-        `${import.meta.env.VITE_PUBLISH_SERVER}api/users/updatecart/${
-          officialUser.id
-        }`,
-        { cart: newArray },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response) {
-        handleCartList(user.id, token);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    await cartUpdate(cart_item, user, setCart, cart);
   };
   useEffect(() => {
     if (isValid) {

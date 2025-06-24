@@ -8,7 +8,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_PUBLISH_KEY);
 function CartList() {
   const { cart } = useContext(userContext);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(cart);
 
   const handleCheckout = async () => {
     const { data } = await axios.post(

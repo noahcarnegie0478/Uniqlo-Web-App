@@ -1,6 +1,14 @@
 import axios from "axios";
 
-export const LoginUser = async (email, password, setLogin, SetValid) => {
+export const Login = async (
+  email,
+  password,
+  setLogin,
+  SetValid,
+  handleWishlist,
+  handleCartList,
+  setUser
+) => {
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_PUBLISH_SERVER}users/login`,
@@ -12,7 +20,7 @@ export const LoginUser = async (email, password, setLogin, SetValid) => {
     localStorage.setItem("token", JSON.stringify(response.data.token));
     setLogin(true);
     localStorage.setItem("login", true.toString());
-    await navigateUserToProfile();
+    await navigateUserToProfile(handleWishlist, handleCartList, setUser);
     SetValid(false);
   } catch (error) {
     console.log(error);
@@ -44,5 +52,16 @@ export const navigateUserToProfile = async (
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const LogoutUser = async setUser => {
+  const result = await axios.post(
+    `${import.meta.env.VITE_PUBLISH_SERVER}logout`
+  );
+
+  if (result) {
+    setUser([]);
+    alert("You have loged-out!");
   }
 };
