@@ -12,8 +12,7 @@ import { format, parseISO } from "date-fns";
 function Profile() {
   const { category } = useContext(itemsContext);
   const { Logout, user } = useContext(userContext);
-  const formatted = format(parseISO(user.date_of_birth), "dd/MM/yyyy");
-
+  const formatted = format(parseISO(user?.date_of_birth), "dd/MM/yyyy");
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout();
@@ -31,7 +30,7 @@ function Profile() {
               <div className="name my-2">
                 <p className="font-bold uppercase text-3xl"> User Name</p>
                 <p className="font-semibold uppercase text-xl">
-                  {user.username}
+                  {user?.username}
                 </p>
               </div>
               <div className="email my-2">
@@ -47,7 +46,9 @@ function Profile() {
               </div>
               <div className="coupon my-2">
                 <p className="font-bold uppercase text-3xl">User Coupon</p>
-                <p className="font-semibold uppercase text-xl">{user.coupon}</p>
+                <p className="font-semibold uppercase text-xl">
+                  {user?.coupon}
+                </p>
               </div>
             </div>
 

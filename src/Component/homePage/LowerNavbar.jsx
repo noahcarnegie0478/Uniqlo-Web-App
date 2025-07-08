@@ -11,7 +11,7 @@ function LowerNavbar() {
   const location = useLocation();
 
   const handleNavigate = () => {
-    if (user.length !== 0) {
+    if (user !== null) {
       if (location.pathname !== "/profile") {
         navigate("/profile");
       }

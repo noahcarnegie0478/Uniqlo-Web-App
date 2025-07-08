@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { Login, LogoutUser } from "./Services/login.service";
+import { Login, LogoutUser, checkLogout } from "./Services/login.service";
 import { CartHandle, cartUpdate } from "./Services/cart.service";
 import { favouriteUpdate, wishListHandler } from "./Services/favourite.service";
 export const userContext = createContext();
@@ -17,8 +17,7 @@ export const UserProvider = ({ children }) => {
     const saved = localStorage.getItem("user");
     return saved ? JSON.parse(saved) : null;
   });
-  console.log(localStorage.getItem("favourite"));
-  console.log(localStorage.getItem("cart"));
+
   const [favourite, setFavourite] = useState(() => {
     const saved = localStorage.getItem("favourite");
     return saved ? JSON.parse(saved) : [];
@@ -29,9 +28,16 @@ export const UserProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (user) localStorage.setItem("user", JSON.stringify(user));
-    else localStorage.removeItem("user");
-  }, [user]);
+    if (user !== null) {
+      checkLogout(setUser, setFavourite, setCart);
+
+      const interval = setInterval(() => {
+        checkLogout(setUser, setFavourite, setCart);
+      }, 15 * 60 * 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [user, favourite, cart]);
 
   // account Valid cheking
   const checkAccount = () => {
@@ -77,7 +83,7 @@ export const UserProvider = ({ children }) => {
     );
   };
   const Logout = async () => {
-    await LogoutUser(setUser);
+    await LogoutUser(setUser, setFavourite, setCart);
   };
   const updateToCart = async cart_item => {
     await cartUpdate(cart_item, user, setCart, cart);

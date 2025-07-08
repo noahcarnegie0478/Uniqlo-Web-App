@@ -17,9 +17,11 @@ export const Login = async (
         password: password,
       }
     );
+    const loginDate = new Date();
     localStorage.setItem("token", JSON.stringify(response.data.token));
     setLogin(true);
     localStorage.setItem("login", true.toString());
+    localStorage.setItem("loginTime", loginDate.toISOString());
     await navigateUserToProfile(handleWishlist, handleCartList, setUser);
     SetValid(false);
   } catch (error) {
@@ -55,13 +57,34 @@ export const navigateUserToProfile = async (
   }
 };
 
-export const LogoutUser = async setUser => {
+export const LogoutUser = async (setUser, setFavourite, setCart) => {
   const result = await axios.post(
     `${import.meta.env.VITE_PUBLISH_SERVER}logout`
   );
-
   if (result) {
-    setUser([]);
+    setUser(null);
+    setFavourite([]);
+    setCart([]);
+    localStorage.removeItem("user");
+    localStorage.removeItem("login");
+    localStorage.removeItem("loginTime");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("favourite");
+    localStorage.removeItem("token");
     alert("You have loged-out!");
+  }
+};
+export const checkLogout = (setUser, setFavourite, setCart) => {
+  const loginTime = new Date(localStorage.getItem("loginTime"));
+  console.log(loginTime);
+  if (!loginTime) return;
+  if (loginTime) {
+    const currentDate = new Date();
+    const result = (currentDate - loginTime.getTime()) / 1000;
+    console.log("you have ", result, "seconds left!");
+    if (result >= 15 * 60 * 1000) {
+      console.log("suppose to logout!");
+      LogoutUser(setUser, setFavourite, setCart);
+    }
   }
 };
