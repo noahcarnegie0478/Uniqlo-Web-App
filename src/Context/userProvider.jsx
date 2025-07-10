@@ -1,7 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Login, LogoutUser, checkLogout } from "./Services/login.service";
 import { CartHandle, cartUpdate } from "./Services/cart.service";
-import { favouriteUpdate, wishListHandler } from "./Services/favourite.service";
+import {
+  favouriteUpdate,
+  wishListHandler,
+  guestFavouriteUpdate,
+} from "./Services/favourite.service";
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
   const [email, setEmail] = useState("");
@@ -59,6 +63,14 @@ export const UserProvider = ({ children }) => {
   };
   const handleCartList = async (user_id, token) => {
     await CartHandle(user_id, token, setCart);
+  };
+  const guestWishList = async item_id => {
+    await guestFavouriteUpdate(
+      item_id,
+      favouriteID,
+      setfavouriteID,
+      setFavourite
+    );
   };
 
   const updateFavourite = async item_id => {
@@ -122,6 +134,7 @@ export const UserProvider = ({ children }) => {
         cart,
         setCart,
         Logout,
+        guestWishList,
       }}
     >
       {" "}

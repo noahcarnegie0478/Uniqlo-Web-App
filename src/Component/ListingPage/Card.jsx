@@ -6,12 +6,16 @@ import Image from "./CardElement/CardImage";
 import CardColour from "./CardElement/CardColour";
 
 function Card({ item }) {
-  const { updateFavourite } = useContext(userContext);
+  const { updateFavourite, user, guestWishList } = useContext(userContext);
   const { setChosenItem, setCurrentBreadcrumbs } = useContext(itemsContext);
   const [currentCardColor, setCurrentCardColor] = useState(null);
 
   const handleFavourite = () => {
-    updateFavourite(item.item_id);
+    if (user !== null) {
+      updateFavourite(item.item_id);
+    } else {
+      guestWishList(item.item_id);
+    }
   };
 
   const handleChosen = item => {

@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import { userContext } from "../../../Context/userProvider";
 
 function TitleDisplay({ title, item_id }) {
-  const { updateFavourite, user } = useContext(userContext);
+  const { updateFavourite, user, guestWishList } = useContext(userContext);
 
   const handleFavourite = () => {
-    user.length == 0
-      ? alert("Please login to add this item into favourite")
-      : updateFavourite(item_id);
+    if (user !== null) {
+      updateFavourite(item_id);
+    } else {
+      guestWishList(item_id);
+    }
   };
 
   return (

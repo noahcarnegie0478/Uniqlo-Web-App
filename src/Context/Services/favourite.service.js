@@ -72,7 +72,6 @@ export const favouriteUpdate = async (
 //create a function that handle favourite without user !
 export const guestFavouriteUpdate = async (
   item_id,
-  user,
   favouriteID,
   setfavouriteID,
   setFavourite

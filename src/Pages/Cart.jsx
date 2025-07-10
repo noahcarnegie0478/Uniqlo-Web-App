@@ -13,7 +13,7 @@ function Cart() {
   const { user } = useContext(userContext);
   const { category } = useContext(itemsContext);
   const navigate = useNavigate();
-  if (user.length === 0) {
+  if (user == null) {
     navigate("/login");
   }
   return (

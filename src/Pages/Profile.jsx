@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import { format, parseISO } from "date-fns";
 import { AiFillIdcard } from "react-icons/ai";
 import ProfileDisplay from "../Component/wishlist/ProfileDisplay";
+import { Link } from "react-router";
 
 function Profile() {
   const { category } = useContext(itemsContext);
@@ -36,14 +37,20 @@ function Profile() {
               handleLogout={handleLogout}
             />
           ) : (
-            <div className="please-login left-side w-3/10 border-1 flex flex-row items-start relative  ">
+            <div className="please-login left-side w-3/10 border-1 h-screen  ">
               <div className="pl-20 mt-70 pr-10 ">
-                <p className="font-bold text-2xl ">
+                <p className="font-bold text-2xl  ">
                   {" "}
-                  Please create account or login, to experience the shopping
-                  process better!
+                  Please sign in or create an account to enhance your shopping
+                  experience!
                 </p>
-                <AiFillIdcard className="fill-card" />
+                <div className="flex gap-2 w-full justify-start items-center font-bold text-lg ">
+                  <p>Click icon for the login page:</p>
+
+                  <Link to="/login">
+                    <AiFillIdcard className="fill-card animate-pulse" />
+                  </Link>
+                </div>
               </div>
             </div>
           )}
