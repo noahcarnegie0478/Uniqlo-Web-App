@@ -22,8 +22,14 @@ export const Login = async (
     setLogin(true);
     localStorage.setItem("login", true.toString());
     localStorage.setItem("loginTime", loginDate.toISOString());
-    await navigateUserToProfile(handleWishlist, handleCartList, setUser);
-    SetValid(false);
+    const result = await navigateUserToProfile(
+      handleWishlist,
+      handleCartList,
+      setUser
+    );
+    if (result) {
+      SetValid(false);
+    }
   } catch (error) {
     console.log(error);
     SetValid(false);
@@ -57,7 +63,12 @@ export const navigateUserToProfile = async (
   }
 };
 
-export const LogoutUser = async (setUser, setFavourite, setCart) => {
+export const LogoutUser = async (
+  setUser,
+  setFavourite,
+  setCart,
+  setFavouriteID
+) => {
   const result = await axios.post(
     `${import.meta.env.VITE_PUBLISH_SERVER}logout`
   );
@@ -65,16 +76,18 @@ export const LogoutUser = async (setUser, setFavourite, setCart) => {
     setUser(null);
     setFavourite([]);
     setCart([]);
+    setFavouriteID([]);
     localStorage.removeItem("user");
     localStorage.removeItem("login");
     localStorage.removeItem("loginTime");
     localStorage.removeItem("cart");
     localStorage.removeItem("favourite");
     localStorage.removeItem("token");
+
     alert("You have loged-out!");
   }
 };
-export const checkLogout = (setUser, setFavourite, setCart) => {
+export const checkLogout = (setUser, setFavourite, setCart, setFavouriteID) => {
   const loginTime = new Date(localStorage.getItem("loginTime"));
   console.log(loginTime);
   if (!loginTime) return;
@@ -84,7 +97,25 @@ export const checkLogout = (setUser, setFavourite, setCart) => {
     console.log("you have ", result, "seconds left!");
     if (result >= 15 * 60 * 1000) {
       console.log("suppose to logout!");
-      LogoutUser(setUser, setFavourite, setCart);
+      LogoutUser(setUser, setFavourite, setCart, setFavouriteID);
     }
+  }
+};
+export const registerAccount = async (name, email, password) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/users/register`,
+      {
+        username: name,
+        email: email,
+        password: password,
+      }
+    );
+    if (response) {
+      console.log(response.data);
+      alert("succesfully added!");
+    }
+  } catch (error) {
+    console.error(error);
   }
 };

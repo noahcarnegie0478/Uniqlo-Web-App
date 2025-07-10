@@ -14,7 +14,7 @@ function FeedbackService({ item_id }) {
   var count = 0;
   const getReviewForItem = async () => {
     const result = await axios.post(
-      `${import.meta.env.VITE_PUBLISH_SERVER}/api/feedback/get`,
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/feedback/get`,
       {
         item_id: item_id,
       }
@@ -45,7 +45,7 @@ function FeedbackService({ item_id }) {
     } else {
       const token = await JSON.parse(localStorage.getItem("token"));
       const result = await axios.post(
-        `${import.meta.env.VITE_PUBLISH_SERVER}/api/feedback/create`,
+        `${import.meta.env.VITE_PUBLISH_SERVER}api/feedback/create`,
         {
           item_id: item_id,
           user_id: user.id,

@@ -6,34 +6,45 @@ export const wishListHandler = async (
   setfavouriteID,
   setFavourite
 ) => {
-  const newFavoutite = await axios.post(
-    `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getfavouritebyid`,
-    {
-      user_id: user_id,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  try {
+    const newFavoutite = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}api/users/getfavouritebyid`,
+      {
+        user_id: user_id,
       },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (newFavoutite) {
+      if (newFavoutite.data.favourite == null) {
+        setfavouriteID([]);
+        setFavourite([]);
+      } else {
+        const result =
+          newFavoutite.data.favourite.length > 1
+            ? await axios.post(
+                `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+                {
+                  input: newFavoutite.data.favourite.join(" | "),
+                }
+              )
+            : await axios.post(
+                `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+                {
+                  input: newFavoutite.data.favourite.join(),
+                }
+              );
+        setfavouriteID(newFavoutite.data.favourite);
+        setFavourite(result.data);
+        localStorage.setItem("favourite", JSON.stringify(result.data));
+      }
     }
-  );
-  const result =
-    newFavoutite.data.favourite.length > 1
-      ? await axios.post(
-          `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-          {
-            input: newFavoutite.data.favourite.join(" | "),
-          }
-        )
-      : await axios.post(
-          `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
-          {
-            input: newFavoutite.data.favourite.join(),
-          }
-        );
-  setfavouriteID(newFavoutite.data.favourite);
-  setFavourite(result.data);
-  localStorage.setItem("favourite", JSON.stringify(result.data));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const favouriteUpdate = async (

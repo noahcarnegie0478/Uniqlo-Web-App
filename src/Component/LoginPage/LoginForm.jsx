@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { userContext } from "../../Context/userProvider";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+function LoginForm({ login, setLogin }) {
   const { setEmail, setPassword, checkAccount, error, user } =
     useContext(userContext);
   const naviagte = useNavigate();
@@ -14,6 +14,7 @@ function LoginForm() {
   }, [user]);
   const handleSubmission = e => {
     e.preventDefault();
+    checkAccount();
     console.log("Form submited");
   };
 
@@ -24,7 +25,7 @@ function LoginForm() {
         onSubmit={handleSubmission}
       >
         <h2 className=" mb-5 font-bold text-lg">Login</h2>
-        <div className="mb-5">
+        <div className="mb-5 w-full">
           <label
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900"
@@ -40,7 +41,7 @@ function LoginForm() {
             onChange={e => setEmail(e.target.value)}
           />
         </div>
-        <div className="mb-5">
+        <div className="mb-5 w-full">
           <label
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 "
@@ -56,31 +57,26 @@ function LoginForm() {
             onChange={e => setPassword(e.target.value)}
           />
         </div>
-        <div className="flex items-start mb-5">
-          <div className="flex items-center h-5">
-            <input
-              id="remember"
-              type="checkbox"
-              value=""
-              className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-              required
-            />
-          </div>
-          <label
-            htmlFor="remember"
-            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Remember me
-          </label>
-        </div>
+
         <p className="text-red-600">{error}</p>
         <button
           className="text-white  focus:ring-4 focus:outline-none  font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center "
           style={{ backgroundColor: "#ff0000" }}
-          onClick={() => checkAccount()}
+          type="submit"
         >
           Submit
         </button>
+        <div className="text-red-400 text-center mt-5 ">
+          <p>You dont have account?</p>
+          <p
+            className="font-semibold text-red-500 hover:text-red-600 active:text-red-400"
+            onClick={() => {
+              setLogin(false);
+            }}
+          >
+            Register here
+          </p>
+        </div>
       </form>
     </div>
   );

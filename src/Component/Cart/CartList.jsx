@@ -43,7 +43,7 @@ function CartList() {
       />
       <div className="title-wishlist">
         <p className="text-4xl font-bold"> {user?.username} Cart list</p>
-        <p className="text-gray-800 p-2">({cart.length} items)</p>
+        <p className="text-gray-800 p-2">({cart?.length} items)</p>
       </div>
       <div className="cartcontainer ">
         {cart.length > 0 ? (
@@ -64,7 +64,7 @@ function CartList() {
                 if (user == null) {
                   setCheckoutForm(true);
                 } else {
-                  handleCheckout(user);
+                  handleCheckout(user.id);
                 }
               }}
             >

@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
-import { Login, LogoutUser, checkLogout } from "./Services/login.service";
+import {
+  Login,
+  LogoutUser,
+  checkLogout,
+  registerAccount,
+} from "./Services/login.service";
 import {
   CartHandle,
   cartUpdate,
@@ -36,10 +41,10 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (user !== null) {
-      checkLogout(setUser, setFavourite, setCart);
+      checkLogout(setUser, setFavourite, setCart, setfavouriteID);
 
       const interval = setInterval(() => {
-        checkLogout(setUser, setFavourite, setCart);
+        checkLogout(setUser, setFavourite, setCart, setfavouriteID);
       }, 15 * 60 * 1000);
 
       return () => clearInterval(interval);
@@ -97,8 +102,11 @@ export const UserProvider = ({ children }) => {
       setUser
     );
   };
+  const assignAccount = async (name, email, password) => {
+    await registerAccount(name, email, password);
+  };
   const Logout = async () => {
-    await LogoutUser(setUser, setFavourite, setCart);
+    await LogoutUser(setUser, setFavourite, setCart, setfavouriteID);
   };
   const updateToCart = async cart_item => {
     await cartUpdate(cart_item, user, setCart, cart);
@@ -109,9 +117,9 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isValid) {
       LoginUser();
+      console.log(favourite);
     }
   }, [isValid]);
-
   return (
     <userContext.Provider
       value={{
@@ -143,6 +151,7 @@ export const UserProvider = ({ children }) => {
         Logout,
         guestWishList,
         updateToGuestCart,
+        assignAccount,
       }}
     >
       {" "}

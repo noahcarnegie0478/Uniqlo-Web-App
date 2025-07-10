@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import React, { useEffect, useContext } from "react";
+
 import "boxicons";
 import Card from "./Card";
 import { itemsContext } from "../../Context/ItemProvider";
