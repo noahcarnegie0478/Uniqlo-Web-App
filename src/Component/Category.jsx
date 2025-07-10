@@ -42,6 +42,7 @@ function Category() {
     } else {
       setKeyWords(value);
     }
+    ChangeLocation();
   };
   useEffect(() => {
     getCategory();
