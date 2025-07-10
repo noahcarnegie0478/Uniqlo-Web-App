@@ -8,11 +8,15 @@ import WishList from "../Component/wishlist/WishList";
 import { userContext } from "../Context/userProvider";
 import { useNavigate } from "react-router";
 import { format, parseISO } from "date-fns";
+import { AiFillIdcard } from "react-icons/ai";
+import ProfileDisplay from "../Component/wishlist/ProfileDisplay";
 
 function Profile() {
   const { category } = useContext(itemsContext);
   const { Logout, user } = useContext(userContext);
-  const formatted = format(parseISO(user?.date_of_birth), "dd/MM/yyyy");
+  const formatted = user
+    ? format(parseISO(user?.date_of_birth), "dd/MM/yyyy")
+    : null;
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout();
@@ -25,42 +29,24 @@ function Profile() {
         <Category />
       ) : (
         <div className="content-listing  border-1 flex gap-2 ">
-          <div className="left-side w-3/10 border-1 flex flex-row items-start relative ">
-            <div className=" pl-20 mt-70 ">
-              <div className="name my-2">
-                <p className="font-bold uppercase text-3xl"> User Name</p>
-                <p className="font-semibold uppercase text-xl">
-                  {user?.username}
-                </p>
-              </div>
-              <div className="email my-2">
-                <p className="font-bold uppercase text-3xl"> User Email</p>
-                <p className="font-semibold uppercase text-xl">{user.email}</p>
-              </div>
-              <div className="dob my-2">
-                <p className="font-bold uppercase text-3xl">
+          {user ? (
+            <ProfileDisplay
+              user={user}
+              formatted={formatted}
+              handleLogout={handleLogout}
+            />
+          ) : (
+            <div className="please-login left-side w-3/10 border-1 flex flex-row items-start relative  ">
+              <div className="pl-20 mt-70 pr-10 ">
+                <p className="font-bold text-2xl ">
                   {" "}
-                  User Date Of Birth
+                  Please create account or login, to experience the shopping
+                  process better!
                 </p>
-                <p className="font-semibold uppercase text-xl">{formatted}</p>
-              </div>
-              <div className="coupon my-2">
-                <p className="font-bold uppercase text-3xl">User Coupon</p>
-                <p className="font-semibold uppercase text-xl">
-                  {user?.coupon}
-                </p>
+                <AiFillIdcard className="fill-card" />
               </div>
             </div>
-
-            <div className="logout-button">
-              <button
-                className="w-full absolute bottom-0 bg-red-500 h-10 text-white font-bold left-0 hover:bg-red-600 active:bg-red-400 "
-                onClick={() => handleLogout()}
-              >
-                Logout
-              </button>
-            </div>
-          </div>
+          )}
 
           <div className="right-side w-7/10">
             <Element

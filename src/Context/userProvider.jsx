@@ -4,7 +4,6 @@ import { CartHandle, cartUpdate } from "./Services/cart.service";
 import { favouriteUpdate, wishListHandler } from "./Services/favourite.service";
 export const userContext = createContext();
 export const UserProvider = ({ children }) => {
-  // const [user, setUser] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [favouriteID, setfavouriteID] = useState([]);

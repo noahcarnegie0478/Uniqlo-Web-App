@@ -68,3 +68,39 @@ export const favouriteUpdate = async (
     console.log(error);
   }
 };
+
+//create a function that handle favourite without user !
+export const guestFavouriteUpdate = async (
+  item_id,
+  user,
+  favouriteID,
+  setfavouriteID,
+  setFavourite
+) => {
+  {
+    if (favouriteID.includes(item_id)) {
+      console.log("nothing changes");
+    } else {
+      const newArray = [...favouriteID, item_id];
+      const result =
+        newArray.length > 1
+          ? await axios.post(
+              `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+              {
+                input: newArray.join(" | "),
+              }
+            )
+          : await axios.post(
+              `${import.meta.env.VITE_PUBLISH_SERVER}api/item/fulltext`,
+              {
+                input: newArray.join(),
+              }
+            );
+      if (result) {
+        setfavouriteID(newArray);
+        setFavourite(result.data);
+        localStorage.setItem("favourite", JSON.stringify(result.data));
+      }
+    }
+  }
+};

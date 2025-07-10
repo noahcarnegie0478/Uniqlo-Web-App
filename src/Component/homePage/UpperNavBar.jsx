@@ -16,7 +16,7 @@ function UpperNavBar() {
   };
   const navigate = useNavigate();
   const navigatetoCart = () => {
-    if (user.length == 0) {
+    if (user !== null) {
       alert("You need to login for further process!");
       navigate("/login");
     } else {
@@ -26,13 +26,8 @@ function UpperNavBar() {
     }
   };
   const navigatetoFavourite = () => {
-    if (user.length == 0) {
-      alert("You need to login for further process!");
-      navigate("/login");
-    } else {
-      if (location.pathname !== "/profile") {
-        navigate("/profile");
-      }
+    if (location.pathname !== "/profile") {
+      navigate("/profile");
     }
   };
 
