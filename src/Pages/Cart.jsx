@@ -1,21 +1,21 @@
-import React, { useContext, useEffect } from "react";
-import { userContext } from "../Context/userProvider";
+import React, { useContext } from "react";
+// import { userContext } from "../Context/userProvider";
 import { itemsContext } from "../Context/ItemProvider";
 import CartList from "../Component/Cart/CartList";
 import UpperNavBar from "../Component/homePage/UpperNavBar";
 import LowerNavbar from "../Component/homePage/LowerNavbar";
 import { Element } from "react-scroll";
 import Category from "../Component/Category";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import Footer from "./Footer";
 
 function Cart() {
-  const { user } = useContext(userContext);
+  // const { user } = useContext(userContext);
   const { category } = useContext(itemsContext);
-  const navigate = useNavigate();
-  if (user == null) {
-    navigate("/login");
-  }
+  // const navigate = useNavigate();
+  // if (user == null) {
+  //   navigate("/login");
+  // }
   return (
     <div className="relative min-h-screen ">
       <UpperNavBar />

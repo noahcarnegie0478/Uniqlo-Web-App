@@ -16,13 +16,14 @@ function UpperNavBar() {
   };
   const navigate = useNavigate();
   const navigatetoCart = () => {
-    if (user !== null) {
-      alert("You need to login for further process!");
-      navigate("/login");
-    } else {
-      if (location.pathname !== "/cart") {
-        navigate("/cart");
-      }
+    // if (user == null) {
+    //   alert("You need to login for further process!");
+    //   navigate("/login");
+    // } else {
+
+    //   }
+    if (location.pathname !== "/cart") {
+      navigate("/cart");
     }
   };
   const navigatetoFavourite = () => {

@@ -1,6 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Login, LogoutUser, checkLogout } from "./Services/login.service";
-import { CartHandle, cartUpdate } from "./Services/cart.service";
+import {
+  CartHandle,
+  cartUpdate,
+  guestCartUpdate,
+} from "./Services/cart.service";
 import {
   favouriteUpdate,
   wishListHandler,
@@ -99,6 +103,9 @@ export const UserProvider = ({ children }) => {
   const updateToCart = async cart_item => {
     await cartUpdate(cart_item, user, setCart, cart);
   };
+  const updateToGuestCart = async cart_item => {
+    await guestCartUpdate(cart_item, setCart, cart);
+  };
   useEffect(() => {
     if (isValid) {
       LoginUser();
@@ -135,6 +142,7 @@ export const UserProvider = ({ children }) => {
         setCart,
         Logout,
         guestWishList,
+        updateToGuestCart,
       }}
     >
       {" "}

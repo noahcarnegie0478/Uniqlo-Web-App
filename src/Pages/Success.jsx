@@ -1,11 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UpperNavBar from "../Component/homePage/UpperNavBar";
 import { itemsContext } from "../Context/ItemProvider";
 import Category from "../Component/Category";
 import { Link } from "react-router";
+import { userContext } from "../Context/userProvider";
 
 function Success() {
   const { category } = useContext(itemsContext);
+  const { setCart, user } = useContext(userContext);
+  useEffect(() => {
+    if (user == null) {
+      setCart([]);
+      localStorage.removeItem("cart");
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-row items-center justify-center">
       <UpperNavBar />

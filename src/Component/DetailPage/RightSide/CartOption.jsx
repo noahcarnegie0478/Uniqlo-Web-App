@@ -11,11 +11,21 @@ function CartOption({
   title,
 }) {
   const [cartCount, setCartCount] = useState(0);
-  const { user, updateToCart } = useContext(userContext);
+  const { user, updateToCart, updateToGuestCart } = useContext(userContext);
   const addToCart = () => {
     // neu cart count = 0
-    user.length == 0
-      ? alert("You need to login before we can process your purchases")
+    user == null
+      ? // alert("You need to login before we can process your purchases")
+        updateToGuestCart({
+          id: item_id,
+          quatity: cartCount == 0 ? 1 : cartCount,
+          size: currentSize,
+          topic: topic,
+          color: currentColor.colorName,
+          image_path: currentColor.ItemImage,
+          price: price,
+          title: title,
+        })
       : updateToCart({
           id: item_id,
           quatity: cartCount == 0 ? 1 : cartCount,

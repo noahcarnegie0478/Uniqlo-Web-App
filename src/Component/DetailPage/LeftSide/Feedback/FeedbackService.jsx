@@ -13,9 +13,12 @@ function FeedbackService({ item_id }) {
   const [UserComment, setUserComment] = useState("");
   var count = 0;
   const getReviewForItem = async () => {
-    const result = await axios.post("http://localhost:3000/api/feedback/get", {
-      item_id: item_id,
-    });
+    const result = await axios.post(
+      `${import.meta.env.VITE_PUBLISH_SERVER}/api/feedback/get`,
+      {
+        item_id: item_id,
+      }
+    );
     setReviews(result.data);
   };
 
@@ -30,7 +33,7 @@ function FeedbackService({ item_id }) {
     }
   };
   const handleReviewTyping = () => {
-    if (user.length == 0) {
+    if (user == null) {
       alert("you need to login for review purpose");
     } else {
       setReviewBox(!reviewBox);
@@ -42,7 +45,7 @@ function FeedbackService({ item_id }) {
     } else {
       const token = await JSON.parse(localStorage.getItem("token"));
       const result = await axios.post(
-        "http://localhost:3000/api/feedback/create",
+        `${import.meta.env.VITE_PUBLISH_SERVER}/api/feedback/create`,
         {
           item_id: item_id,
           user_id: user.id,

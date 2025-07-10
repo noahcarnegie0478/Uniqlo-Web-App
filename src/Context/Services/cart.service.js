@@ -59,3 +59,12 @@ export const cartUpdate = async (cart_item, user, setCart, cart) => {
     console.log(error);
   }
 };
+export const guestCartUpdate = async (cart_item, setCart, cart) => {
+  try {
+    const newArray = await cartFilter(cart_item, cart);
+    setCart(newArray);
+    localStorage.setItem("cart", JSON.stringify(newArray));
+  } catch (error) {
+    console.log(error);
+  }
+};
